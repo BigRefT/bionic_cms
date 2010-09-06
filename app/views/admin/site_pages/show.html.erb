@@ -1,0 +1,32 @@
+<h1><%= @page.name %></h1>
+<% render_region :above_content do |above_content| %>
+  <% above_content.action_list do %>
+    <%= link_to "Edit", edit_admin_site_page_path(@page) %> | <%= link_to 'Back', admin_site_pages_path %>
+  <% end %>
+<% end %>
+<br /><br />
+<div class="list_content" style="border: none;">
+  <ul id="site_page_info_tabs" class="subsection_tabs">
+    <% render_region :tab_header do |tab_header| %>
+      <% tab_header.general_tab_header do %>
+        <li class="tab"><a href="#general_tab_id">General</a></li>
+      <% end %>
+    <% end %>
+  </ul>
+  <div class="clearfix"></div>
+  <%= render_region :tabs %>
+</div>
+<% render_region :below_content do |below_content| %>
+  <% below_content.show_additional_script do %>
+    <% additional_script do %>
+      <%= javascript_include_tag ['livepipe/livepipe', 'livepipe/tabs'] %>
+      <%= javascript_include_tag :fckeditor %>
+      <%= javascript_tag(
+            "document.observe('dom:loaded',function(){\n" <<
+            "new Control.Tabs('site_page_info_tabs');\n" <<
+            "});\n"
+          )
+      %>
+    <% end %>
+  <% end %>
+<% end %>

@@ -1,0 +1,8 @@
+<% @audits.each do |audit| %><% next if audit.site_id != Site.current_site_id && !Site.current_site_id.nil? %>
+  <tr id="recent_activity-<%= audit.id %>" class="<%= cycle('even', 'odd') %>">
+    <td class="date"><%= audit.created_at.strftime("%b %d") %></td>
+    <td>
+      <%= audit_display(audit) %>
+    </td>
+  </tr>
+<% end %>

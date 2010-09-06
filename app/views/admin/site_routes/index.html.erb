@@ -1,0 +1,41 @@
+<h1>Site Routes</h1>
+<% render_region :top do |top| %>
+  <% top.pagination_counts do %>
+    <p><%= will_paginate_record_display(@site_routes) %></p>
+  <% end %>
+<% end %>
+<div class="list_content">
+  <%= render_region :before_list %>
+  <table class="list_table">
+    <thead>
+      <tr>
+        <% render_region :list_headers do |list_headers| %>
+          <% list_headers.url_handle_column_header do %><th>Url Handle</th><% end %>
+          <% list_headers.arrow_column_header do %><th>&nbsp;</th><% end %>
+          <% list_headers.site_page_column_header do %><th>Site Page</th><% end %>
+          <% list_headers.actions_column_header do %><th>Actions</th><% end %>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @site_routes.length == 0 %>
+        <tr><td colspan="<%= admin_interface.site_routes.index.list_data.length %>" class="no_entries">No Site Routes</td></tr>
+      <% else %>
+         <%= render :partial => 'site_route', :collection => @site_routes %>
+      <% end %>
+    </tbody>
+  </table>
+  <% render_region :after_list do |after_list| %>
+    <% after_list.pagination_links do %>
+      <%= will_paginate_links(@site_routes) %>
+    <% end %>
+  <% end %>
+  <div class="action_row">
+    <% render_region :action_row do |action_row| %>
+      <% action_row.new_site_route do %>
+        <%= link_to 'New Route', new_admin_site_route_path %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+<%= render_region :bottom %>

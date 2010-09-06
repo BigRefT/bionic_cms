@@ -1,0 +1,13 @@
+<tr id="extension_<%= extension.extension_name.to_handle %>" class="extension_row list_row">
+  <% render_region :list_data, :locals => { :extension => extension } do |list_data| %>
+    <% list_data.name_column do %>
+      <td class="extension_name"><h4><%= h extension.extension_name %></h4><p><%= h extension.description %></p></td>
+    <% end %>
+    <% list_data.website_column do %>
+      <td class="extension_domain"><%= extension.url.empty_or_nil? ? "" : link_to("Website", extension.url, :target => "_blank") %></td>
+    <% end %>
+    <% list_data.version_column do %>
+      <td class="extension_version"><%= h extension.version %></td>
+    <% end %>
+  <% end %>
+</tr>

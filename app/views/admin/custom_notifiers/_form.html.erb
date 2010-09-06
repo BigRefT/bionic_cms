@@ -1,0 +1,23 @@
+<% field_set_tag "#{save_label} Custom Notifier" do -%>
+  <% render_region :form_top do |form_top| %>
+    <% form_top.edit_errors do %>
+      <%= error_messages_for :custom_notifier %>
+    <% end %>
+  <% end %>
+  <% render_region :form do |form| %>
+    <% form.edit_type do %>
+      <div class="text-field required">
+        <label for="custom_notifier_notifier_type">Notifier Type:<strong><sup>*</sup></strong></label>
+        <div class="input"><%= f.hidden_field :notifier_type %><%= @custom_notifier.notifier_type.to_readable %></div>
+      </div>
+    <% end %>
+    <% form.edit_name do %>
+      <%= f.text_field :name, :label => "Name:", :required => true %>
+    <% end %>
+  <% end %>
+  <% render_region :form_bottom do |form_bottom| %>
+    <% form_bottom.edit_buttons do %>
+      <%= f.submit_or_back save_label, admin_site_emails_path %>
+    <% end %>
+  <% end %>
+<% end %>

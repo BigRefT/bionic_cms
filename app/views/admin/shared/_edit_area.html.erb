@@ -1,0 +1,34 @@
+<% if !defined?(inline_script) || (defined?(inline_script) && inline_script == false) %>
+  <% additional_script do %>
+    <%= javascript_include_tag 'edit_area/edit_area_full.js' if !defined?(init_only) || (defined?(init_only) && init_only == false) %>
+    <script language="javascript" type="text/javascript">
+    editAreaLoader.init({
+      id: "<%= text_area_id %>", // textarea id
+      syntax: "<%= defined?(syntax) ? syntax : 'html' %>", // syntax to be used for highlighting
+      allow_resize: "both",
+      allow_toggle: true,
+      language: "en",
+      replace_tab_by_spaces: 2,
+      plugins: "charmap",
+      end_toolbar: "charmap",
+      start_highlight: true // to display with highlight mode on start-up
+      <%= options if defined? options %>
+    });
+    </script>
+  <% end %>
+<% else %>
+<script language="javascript" type="text/javascript">
+editAreaLoader.init({
+  id: "<%= text_area_id %>", // textarea id
+  syntax: "<%= defined?(syntax) ? syntax : 'html' %>", // syntax to be used for highlighting
+  allow_resize: "both",
+  allow_toggle: true,
+  language: "en",
+  replace_tab_by_spaces: 2,
+  plugins: "charmap",
+  end_toolbar: "charmap",
+  start_highlight: true // to display with highlight mode on start-up
+  <%= options if defined? options %>
+});
+</script>
+<% end %>

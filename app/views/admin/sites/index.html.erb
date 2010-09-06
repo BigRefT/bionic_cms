@@ -1,0 +1,39 @@
+<h1>Sites</h1>
+<% render_region :top do |top| %>
+  <% top.pagination_counts do %>
+    <p><%= will_paginate_record_display(@sites) %></p>
+  <% end %>
+<% end %>
+<div class="list_content">
+  <table class="list_table">
+    <thead>
+      <tr>
+        <% render_region :list_headers do |list_headers| %>
+          <% list_headers.name_column_header do %><th>Name</th><% end %>
+          <% list_headers.domain_column_header do %><th>Domain</th><% end %>
+          <% list_headers.actions_column_header do %><th>Actions</th><% end %>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @sites.length == 0 %>
+        <tr><td colspan="<%= admin_interface.site.index.list_data.length %>" class="no_entries">No Sites</td></tr>
+      <% else %>
+         <%= render :partial => 'site', :collection => @sites %>
+      <% end %>
+    </tbody>
+  </table>
+  <% render_region :after_list do |after_list| %>
+    <% after_list.pagination_links do %>
+      <%= will_paginate_links(@sites) %>
+    <% end %>
+  <% end %>
+  <div class="action_row">
+    <% render_region :action_row do |action_row| %>
+      <% action_row.new_site_link do %>
+        <%= link_to 'New Site', new_admin_site_path if current_user_is_admin? %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+<%= render_region :bottom %>

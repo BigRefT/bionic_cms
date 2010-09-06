@@ -1,0 +1,147 @@
+--- !ruby/object:Gem::Specification 
+name: lockdown
+version: !ruby/object:Gem::Version 
+  prerelease: false
+  segments: 
+  - 1
+  - 6
+  - 5
+  version: 1.6.5
+platform: ruby
+authors: 
+- Andrew Stone
+autorequire: 
+bindir: bin
+cert_chain: []
+
+date: 2010-03-01 00:00:00 -05:00
+default_executable: 
+dependencies: 
+- !ruby/object:Gem::Dependency 
+  name: rspec
+  prerelease: false
+  requirement: &id001 !ruby/object:Gem::Requirement 
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        segments: 
+        - 0
+        version: "0"
+  type: :development
+  version_requirements: *id001
+description: Restrict access to your controller actions.  Supports basic model level restrictions as well
+email: andy@stonean.com
+executables: []
+
+extensions: []
+
+extra_rdoc_files: 
+- README.txt
+files: 
+- .gitignore
+- README.txt
+- Rakefile
+- lib/lockdown.rb
+- lib/lockdown/context.rb
+- lib/lockdown/database.rb
+- lib/lockdown/errors.rb
+- lib/lockdown/frameworks/rails.rb
+- lib/lockdown/frameworks/rails/controller.rb
+- lib/lockdown/frameworks/rails/view.rb
+- lib/lockdown/helper.rb
+- lib/lockdown/orms/active_record.rb
+- lib/lockdown/permission.rb
+- lib/lockdown/references.rb
+- lib/lockdown/rspec_helper.rb
+- lib/lockdown/rules.rb
+- lib/lockdown/session.rb
+- lib/lockdown/system.rb
+- lockdown.gemspec
+- rails_generators/lockdown/lockdown_generator.rb
+- rails_generators/lockdown/templates/app/controllers/permissions_controller.rb
+- rails_generators/lockdown/templates/app/controllers/sessions_controller.rb
+- rails_generators/lockdown/templates/app/controllers/user_groups_controller.rb
+- rails_generators/lockdown/templates/app/controllers/users_controller.rb
+- rails_generators/lockdown/templates/app/helpers/permissions_helper.rb
+- rails_generators/lockdown/templates/app/helpers/user_groups_helper.rb
+- rails_generators/lockdown/templates/app/helpers/users_helper.rb
+- rails_generators/lockdown/templates/app/models/permission.rb
+- rails_generators/lockdown/templates/app/models/profile.rb
+- rails_generators/lockdown/templates/app/models/user.rb
+- rails_generators/lockdown/templates/app/models/user_group.rb
+- rails_generators/lockdown/templates/app/views/permissions/index.html.erb
+- rails_generators/lockdown/templates/app/views/permissions/show.html.erb
+- rails_generators/lockdown/templates/app/views/sessions/new.html.erb
+- rails_generators/lockdown/templates/app/views/user_groups/edit.html.erb
+- rails_generators/lockdown/templates/app/views/user_groups/index.html.erb
+- rails_generators/lockdown/templates/app/views/user_groups/new.html.erb
+- rails_generators/lockdown/templates/app/views/user_groups/show.html.erb
+- rails_generators/lockdown/templates/app/views/users/edit.html.erb
+- rails_generators/lockdown/templates/app/views/users/index.html.erb
+- rails_generators/lockdown/templates/app/views/users/new.html.erb
+- rails_generators/lockdown/templates/app/views/users/show.html.erb
+- rails_generators/lockdown/templates/config/initializers/lockit.rb
+- rails_generators/lockdown/templates/db/migrate/create_admin_user.rb
+- rails_generators/lockdown/templates/db/migrate/create_permissions.rb
+- rails_generators/lockdown/templates/db/migrate/create_profiles.rb
+- rails_generators/lockdown/templates/db/migrate/create_user_groups.rb
+- rails_generators/lockdown/templates/db/migrate/create_users.rb
+- rails_generators/lockdown/templates/lib/lockdown/README
+- rails_generators/lockdown/templates/lib/lockdown/init.rb
+- spec/lockdown/context_spec.rb
+- spec/lockdown/database_spec.rb
+- spec/lockdown/frameworks/rails/controller_spec.rb
+- spec/lockdown/frameworks/rails/view_spec.rb
+- spec/lockdown/frameworks/rails_spec.rb
+- spec/lockdown/permission_spec.rb
+- spec/lockdown/rspec_helper_spec.rb
+- spec/lockdown/rules_spec.rb
+- spec/lockdown/session_spec.rb
+- spec/lockdown/system_spec.rb
+- spec/lockdown_spec.rb
+- spec/rcov.opts
+- spec/spec.opts
+- spec/spec_helper.rb
+has_rdoc: true
+homepage: http://stonean.com/wiki/lockdown
+licenses: []
+
+post_install_message: 
+rdoc_options: 
+- --charset=UTF-8
+require_paths: 
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      segments: 
+      - 0
+      version: "0"
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      segments: 
+      - 0
+      version: "0"
+requirements: []
+
+rubyforge_project: lockdown
+rubygems_version: 1.3.6
+signing_key: 
+specification_version: 3
+summary: Authorization system for Rails 2.x
+test_files: 
+- spec/lockdown/rules_spec.rb
+- spec/lockdown/context_spec.rb
+- spec/lockdown/system_spec.rb
+- spec/lockdown/session_spec.rb
+- spec/lockdown/frameworks/rails_spec.rb
+- spec/lockdown/frameworks/rails/controller_spec.rb
+- spec/lockdown/frameworks/rails/view_spec.rb
+- spec/lockdown/permission_spec.rb
+- spec/lockdown/database_spec.rb
+- spec/lockdown/rspec_helper_spec.rb
+- spec/lockdown_spec.rb
+- spec/spec_helper.rb

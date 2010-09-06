@@ -1,0 +1,207 @@
+/* Start Forms */
+form.semantic-form fieldset {
+  border: 1px solid black;
+  margin: 0px 2px;
+  padding: 5px 10px 12px 10px;
+  width: 96%;
+  font-size: 16pt;
+  min-width: 680px;
+}
+
+form.semantic-form fieldset legend,
+form.semantic-form label,
+form.semantic-form input,
+form.semantic-form select,
+form.semantic-form select option,
+form.semantic-form textarea {
+  font-family: Georgia;
+  font-size: 16pt;
+  color: #000;
+}
+
+form.semantic-form fieldset legend {
+  padding: 3px;
+  font-size: 18pt;
+}
+
+form.semantic-form input,
+form.semantic-form select,
+form.semantic-form textarea {
+  border-top: 2px solid #999999;
+  border-left: 2px solid #999999;
+  border-right: 2px solid #cccccc;
+  border-bottom: 2px solid #cccccc;
+  font-size: 16pt;
+  padding: 3px;
+}
+
+form.semantic-form textarea {
+  font-size: 10pt;
+}
+
+form.semantic-form input[type=text],
+form.semantic-form input[type=password] {
+  width: 95%;
+}
+
+form.semantic-form textarea {
+  width: 95%;
+}
+
+form.semantic-form select {
+  height: 1.5em;
+}
+
+form.semantic-form input[type=submit],
+form.semantic-form input[type=button] {
+  background: #229316;
+  color: #fff;
+  border-top: 2px solid #55c649;
+  border-left: 2px solid #55c649;
+  border-right: 2px solid #006000;
+  border-bottom: 2px solid #006000;
+  margin: 0 5px;
+}
+
+form.semantic-form input[type=submit][value=cancel] {
+  border-top: 2px solid #e68582;
+  border-left: 2px solid #e68582;
+  border-bottom: 2px solid #801f1c;
+  border-right: 2px solid #801f1c;
+  color: #ffb8b5;
+  background: #b3524f;
+}
+
+form.semantic-form div.fieldWithErrors {
+  display: inline;
+}
+
+form.semantic-form div.fieldWithErrors input,
+form.semantic-form div.fieldWithErrors select,
+form.semantic-form div.fieldWithErrors textarea {
+  border-top: 2px solid #8F0600;
+  border-left: 2px solid #8F0600;
+  border-bottom: 2px solid #BB4036;
+  border-right: 2px solid #BB4036;
+  line-height: 1.5em;
+}
+
+form.semantic-form div.check-box-field,
+form.semantic-form div.check-box-fields,
+form.semantic-form div.date-field,
+form.semantic-form div.datetime-field,
+form.semantic-form div.file-field,
+form.semantic-form div.password-field,
+form.semantic-form div.radio-field,
+form.semantic-form div.radio-fields,
+form.semantic-form div.select-field,
+form.semantic-form div.text-field,
+form.semantic-form div.textarea-field,
+form.semantic-form div.time-zone-select-field,
+form.semantic-form div.submit-field {
+  float: left;
+  clear: both;
+  margin: 0;
+  padding: 10px;
+  border-bottom: 1px solid #cccccc;
+  font-size: 16pt;
+  width: 95%;
+}
+
+form.semantic-form div.check-box-field div.input,
+form.semantic-form div.check-box-fields div.input,
+form.semantic-form div.date-field div.input,
+form.semantic-form div.datetime-field div.input,
+form.semantic-form div.file-field div.input,
+form.semantic-form div.password-field div.input,
+form.semantic-form div.radio-field div.input,
+form.semantic-form div.radio-fields div.input,
+form.semantic-form div.select-field div.input,
+form.semantic-form div.text-field div.input,
+form.semantic-form div.textarea-field div.input,
+form.semantic-form div.time-zone-select-field div.input,
+form.semantic-form div.submit-field div.input {
+  float: left;
+  clear: right;
+  text-align: left;
+  width: 50%;
+  padding-left: 5px;
+}
+
+form.semantic-form div.check-box-field label,
+form.semantic-form div.check-box-fields label,
+form.semantic-form div.date-field label,
+form.semantic-form div.datetime-field label,
+form.semantic-form div.file-field label,
+form.semantic-form div.password-field label,
+form.semantic-form div.radio-field label,
+form.semantic-form div.radio-fields label,
+form.semantic-form div.select-field label,
+form.semantic-form div.text-field label,
+form.semantic-form div.textarea-field label,
+form.semantic-form div.time-zone-select-field label,
+form.semantic-form div.submit-field label {
+  float: left;
+  display: block;
+  width: 10em;
+  padding-right: 10px;
+  text-align: right;
+}
+
+form.semantic-form div.check-box-field label span.help,
+form.semantic-form div.check-box-fields label span.help,
+form.semantic-form div.date-field label span.help,
+form.semantic-form div.datetime-field label span.help,
+form.semantic-form div.file-field label span.help,
+form.semantic-form div.password-field label span.help,
+form.semantic-form div.radio-field label span.help,
+form.semantic-form div.radio-fields label span.help,
+form.semantic-form div.select-field label span.help,
+form.semantic-form div.text-field label span.help,
+form.semantic-form div.textarea-field label span.help,
+form.semantic-form div.time-zone-select-field label span.help,
+form.semantic-form div.submit-field label span.help {
+  display: block;
+  font-size: 60%;
+  font-weight: normal;
+  margin-top: 5px;
+  line-height: 100%;
+}
+
+form.semantic-form div.submit-field {
+  border: none;
+}
+
+form.semantic-form div.submit-field div.input {
+  font-size: 16pt;
+  margin-left: 10em;
+}
+
+form.semantic-form div.check-box-fields div.input label,
+form.semantic-form div.radio-fields div.input label {
+  clear: left;
+  width: auto;
+  font-size: 80%;
+}
+
+form.semantic-form div.required {
+  float: left;
+  line-height: 1.4em;
+}
+
+form.semantic-form div.required label, form.semantic-form div.required p, form.semantic-form div.required span {
+  color: #944;
+  font-weight: bold;
+}
+
+form.semantic-form div.required label span.help {
+  margin-top: 0;
+}
+/* End Forms */
+
+form.semantic-form div.required span.input-prefix,
+form.semantic-form div span.input-prefix {
+  color: black;
+  font-size: .6em;
+  font-weight: normal;
+}

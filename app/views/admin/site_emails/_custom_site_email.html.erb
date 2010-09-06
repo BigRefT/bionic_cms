@@ -1,0 +1,18 @@
+<tr id="site_email-<%= site_email.id.to_s %>" class="layout_row list_row">
+  <% render_region :custom_list_data, :locals => { :site_email => site_email } do |custom_list_data| %>
+    <% custom_list_data.custom_notifier_column do %>
+      <td class="name" style="padding-left: 40px;"><%= site_email.number_of_days_after_to_send_string %></td>
+    <% end %>
+    <% custom_list_data.custom_actions_column do %>
+      <td>
+        <%= link_to "Edit Email", edit_admin_site_email_path(site_email) %>
+        | <%= link_to "Delete Email", admin_site_email_path(site_email), :confirm => 'Are you sure?', :method => :delete %>
+        <% if site_email.active? %>
+        | <%= link_to "Deactivate", deactivate_admin_site_email_path(site_email) %>
+        <% else %>
+        | <%= link_to "Activate", activate_admin_site_email_path(site_email) %>
+        <% end %>
+      </td>
+    <% end %>
+  <% end %>
+</tr>

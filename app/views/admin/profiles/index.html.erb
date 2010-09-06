@@ -1,0 +1,43 @@
+<h1>Profiles</h1>
+<% render_region :top do |top| %>
+  <% top.pagination_counts do %>
+    <p><%= will_paginate_record_display(@profiles) %></p>
+  <% end %>
+<% end %>
+<div class="list_content">
+  <%= render_region :before_list %>
+  <table class="list_table">
+    <thead>
+      <tr>
+        <% render_region :list_headers do |list_headers| %>
+          <% list_headers.email_column_header do %><th>Email</th><% end %>
+          <% list_headers.name_column_header do %><th>Name</th><% end %>
+          <% list_headers.has_account_column_header do %><th>Has Account?</th><% end %>
+          <% list_headers.user_groups_column_header do %><th>User Groups</th><% end %>
+          <% list_headers.actions_column_header do %><th>Actions</th><% end %>
+          <% list_headers.site_column_header do %><% unless Site.current_site_id %><th>Site</th><% end %><% end %>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @profiles.length == 0 %>
+        <tr><td colspan="<%= admin_interface.profiles.index.list_data.length %>" class="no_entries">No Users</td></tr>
+      <% else %>
+         <%= render :partial => 'profile', :collection => @profiles %>
+      <% end %>
+    </tbody>
+  </table>
+  <% render_region :after_list do |after_list| %>
+    <% after_list.pagination_links do %>
+      <%= will_paginate_links(@profiles) %>
+    <% end %>
+  <% end %>
+  <div class="action_row">
+    <% render_region :action_row do |action_row| %>
+      <% action_row.new_user do %>
+        <%= link_to 'New User', new_admin_profile_path %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+<%= render_region :bottom %>

@@ -1,0 +1,3 @@
+<% form_tag admin_site_routes_path, {:method => 'get', :id => 'admin_search_form', :autocomplete => 'off'} do %>
+  <%= text_field_tag :search, params[:search] %><%= submit_tag 'Go' %>
+<% end %>

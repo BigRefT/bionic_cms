@@ -1,0 +1,20 @@
+<tr id="site_layout-<%= site_layout.id.to_s %>" class="layout_row list_row">
+  <% render_region :list_data, :locals => { :site_layout => site_layout } do |list_data| %>
+    <% list_data.name_column do %>
+      <td class="name"><%= link_to site_layout.name, edit_admin_site_layout_path(site_layout) %><% if site_layout.in_draft_mode? %> <sup>**</sup><% end %></td>
+    <% end %>
+    <% list_data.content_type_column do %>
+      <td><%= site_layout.content_type %></td>
+    <% end %>
+    <% list_data.actions_column do %>
+      <td class="actions">
+        <%= link_to 'Edit', edit_admin_site_layout_path(site_layout) %> |
+        <% if site_layout.site_pages.length == 0 %>
+          <%= link_to 'Delete', admin_site_layout_path(site_layout), :confirm => 'Are you sure?', :method => :delete %>
+        <% else %>
+          <%= site_layout.site_pages.length.to_s %> Pages (can't delete)
+        <% end %>
+      </td>
+    <% end %>
+  <% end %>
+</tr>

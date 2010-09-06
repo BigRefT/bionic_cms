@@ -1,0 +1,26 @@
+<% render_region :site_top_left_menu do |site_top_left_menu| %>
+  <% site_top_left_menu.left_menu_form do %>
+    <% if current_user_is_admin? -%>
+      <% form_tag({ :controller => '/admin/sites', :action => 'filter_site' }, { :style => "display: inline;" }) do -%>
+        <%= select_tag('site_id', '<option value="">All Sites</option>' + options_from_collection_for_select(Site.find(:all, :order => 'name'), "id", "name", Site.current_site_id)) %>
+        <%= submit_tag('Go') %>
+      <% end %>
+    <% else %>
+      <%= request.domain %>
+    <% end %>
+  <% end %>
+  <% site_top_left_menu.left_menu_links do %>
+    <% if Site.current_site_id && current_user_is_admin? %>
+      - <%= link_to 'view site', "http://#{Site.current_site.domain}/" %>
+      | <span id="draft_site_link">
+        <% if Site.draft_mode.empty_or_nil? %>
+          <%= render :partial => "/home/toggle_draft_mode", :locals => { :new_link_text => 'enter draft mode', :new_link_url => begin_draft_mode_url } %>
+        <% else %>
+          <%= render :partial => "/home/toggle_draft_mode", :locals => { :new_link_text => 'enter live mode', :new_link_url => end_draft_mode_url } %>
+        <% end %>
+      </span>
+    <% else -%>
+      <% if Site.current_site_id %> - <%= link_to 'view site', home_url %><% end %>
+    <% end -%>
+  <% end -%>
+<% end -%>

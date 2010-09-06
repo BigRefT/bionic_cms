@@ -1,0 +1,15 @@
+<tr class="list_row">
+  <% render_region :list_data do |list_data| %>
+    <% list_data.name_column do %>
+      <td class="name"><%= link_to site.name, edit_admin_site_path(site) %></td>
+    <% end %>
+    <% list_data.domain_column do %>
+      <td><%= site.domain %></td>
+    <% end %>
+    <% list_data.actions_column do %>
+      <td class="actions">
+        <%= link_to 'Delete', admin_site_path(site), :confirm => 'Are you sure?', :method => :delete if current_user_is_admin? %>
+      </td>
+    <% end %>
+  <% end %>
+</tr>

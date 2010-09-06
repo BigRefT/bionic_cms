@@ -1,0 +1,16 @@
+<% render_region :general_data do |page_data| %>
+  <% page_data.data_standard do %>
+    <tr><td class="header">Name:</td><td><%= @site_snippet.name %></td></tr>
+    <tr><td class="header">Content Editor:</td><td><%= @site_snippet.content_type %></td></tr>
+  <% end %>
+  <% page_data.data_content_form do %>
+    <tr>
+      <td class="header">Content:</td>
+      <td>
+        <% form_for [:admin, @site_snippet], :builder => ActionView::Helpers::FormBuilder do |f| %>
+          <%= render :partial => 'content_form_fields', :locals => { :f => f } %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+<% end %>

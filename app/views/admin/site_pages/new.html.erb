@@ -1,0 +1,13 @@
+<% render_region :main do |main| %>
+  <% main.edit_form do %>
+    <% form_for :site_page, @page,
+                :url => admin_site_pages_path,
+                :html => {
+                  :class => 'semantic-form',
+                  :id => "site_page_form_id",
+                  :method => :post
+                } do |f| %>
+      <%= render :partial => 'form', :locals => { :f => f, :save_label => 'Create'} %>
+    <% end %>
+  <% end %>
+<% end %>

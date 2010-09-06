@@ -1,0 +1,21 @@
+<nobr>
+  <div id="toolbar_menu_id">
+    <ul id="toolbar_menu_list_id" class="hover_menu"><% menu_count = 0 %>
+      <% admin_interface.navigation.reverse.each do |menu| -%><% menu_count += 1 %>
+      <% li_class = menu_count == admin_interface.navigation.length ? 'last' : '' %>
+      <% li_class += menu.includes_link?(request.path) ? ' selected' : '' %>
+        <% if menu.has_links? -%>
+      <li<%= " class=\"#{li_class}\"" if !li_class.empty_or_nil? %>><%= link_to("#{menu.label} #{image_tag('admin/icons/menu_down_arrow.gif')}", menu.link) %>
+        <ul id="<%= menu.handle %>_toolbar_list_id"><% link_count = 0 %>
+          <% menu.links.reverse.each do |link| %><% link_count += 1 %>
+          <li<%= ' class="last"' if link_count == menu.links.length %>><%= link_to link.label, link.url %></li>
+          <% end %>
+        </ul>
+      </li>
+        <% else -%>
+      <li<%= " class=\"#{li_class}\"" if !li_class.empty_or_nil? %>><%= link_to(menu.label, menu.link) %></li>
+        <% end -%>
+      <% end -%>
+    </ul>
+  </div>
+</nobr>

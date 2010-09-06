@@ -1,0 +1,2 @@
+class BlogSitePage < SitePage
+end

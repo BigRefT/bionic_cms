@@ -1,0 +1,19 @@
+== Welcome to Bionic
+
+Bionic is an open source content management system designed for
+developers and web designers. It is influenced heavily by Radiant,
+but expands upon the no-fluff that the Radiant team adopted.
+
+== License
+
+Bionic is released under the MIT license and is copyright (c) 2008-2010
+Tony Fontenot. A copy of the MIT license can be found in the
+LICENSE file.
+
+
+== Installation and Setup
+
+Bionic is a traditional Ruby on Rails application, meaning that you can
+configure and run it the way you would a normal Rails application.
+
+See the INSTALL file for more details.

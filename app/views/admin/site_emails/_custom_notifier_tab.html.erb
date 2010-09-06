@@ -1,0 +1,37 @@
+<div class="list_content" id="custom_notifier_tab_id">
+  <%= render_region :custom_before_list %>
+  <table class="list_table">
+    <thead>
+      <tr>
+        <% render_region :custom_list_headers do |custom_list_headers| %>
+          <% custom_list_headers.custom_notifier_column_header do %>
+            <th>Notifier</th>
+          <% end %>
+          <% custom_list_headers.custom_actions_column_header do %>
+            <th>Actions</th>
+          <% end %>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @contact_form_emails.length == 0 %>
+        <tr><td colspan="<%= admin_interface.site_emails.index.custom_list_headers.length %>" class="no_entries">No Entries</td></tr>
+      <% else %>
+        <% @contact_form_emails.each do |notifier_email| %>
+          <%= render :partial => 'custom_notifier_header', :locals => { :notifier_name => notifier_email[:notifier] }%>
+          <%= render :partial => 'custom_site_email', :collection => notifier_email[:site_emails], :as => :site_email %>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+  <% render_region :custom_after_list do |custom_after_list| %>
+    <% custom_after_list.pagination_links do %>
+      <%= empty_pagination_div %>
+    <% end %>
+  <% end %>
+  <% render_region :custom_action_row do |custom_action_row| %>
+    <% custom_action_row.new_custom_notifier do %>
+      <div class="action_row"><%= link_to "Add Contact Form Notifier", new_admin_custom_notifier_url(:notifier_type => "ContactForm")%></div>
+    <% end %>
+  <% end %>
+</div>

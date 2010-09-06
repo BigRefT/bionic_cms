@@ -1,0 +1,6 @@
+*.DS_Store
+*.swp
+pkg/**
+doc/**
+email.txt
+coverage/**

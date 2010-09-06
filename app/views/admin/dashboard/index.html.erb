@@ -1,0 +1,18 @@
+<h1>Recent Activity</h1>
+<% render_region :top do |top| %>
+  <% top.pagination_counts do %>
+    <p><%= will_paginate_record_display(@audits) %></p>
+  <% end %>
+<% end %>
+<%= render_region :before_list %>
+<table id="recent_activity_id" class="recent_activity">
+  <tbody>
+    <%= render :partial => 'audits' %>
+  </tbody>
+</table>
+<% render_region :after_list do |after_list| %>
+  <% after_list.pagination_links do %>
+    <%= will_paginate_links(@audits) %>
+  <% end %>
+<% end %>
+<%= render_region :bottom %>

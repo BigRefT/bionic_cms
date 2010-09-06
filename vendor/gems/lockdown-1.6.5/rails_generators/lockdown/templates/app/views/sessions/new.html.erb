@@ -1,0 +1,12 @@
+<%%= flash[:notice] if flash[:notice] %>
+<%%= flash[:error] if flash[:error] %>
+
+<%% form_tag sessions_path  do -%>
+	<p><label for="login">Login</label><br/>
+	<%%= text_field_tag 'login' %></p>
+
+	<p><label for="password">Password</label><br/>
+	<%%= password_field_tag 'password' %></p>
+
+	<p><%%= submit_tag 'Log in' %></p>
+<%% end -%>

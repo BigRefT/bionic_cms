@@ -1,0 +1,26 @@
+<p>
+  <b>Name</b><br />
+  <%%= h @permission.name %>
+</p>
+<p>
+  <b>Access rights:</b><br />
+  <%%
+    Lockdown::System.access_rights_for_permission(@permission).each do |access_right| 
+  %>
+    <%%= access_right %><br/>
+  <%%
+    end
+  %>
+</p>
+<p>
+  <b>Users with permission:</b><br />
+  <%%
+    @permission.all_users.each do |user| 
+  %>
+      <%%= link_to_or_show(user.full_name, <%= namespace.blank? ? 'user' : "#{namespace}_user_path(user)" %>) %><br/>
+  <%%
+    end
+  %>
+</p>
+
+<%%= link_to 'Back', <%= namespace.blank? ? 'permissions_path' : "#{namespace}_permissions_path" %> %>

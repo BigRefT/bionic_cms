@@ -1,0 +1,23 @@
+<tr id="site_page-<%= site_page_search.id.to_s %>" class="page_row list_row">
+  <% render_region :search_list_data, :locals => { :site_page_search => site_page_search } do |search_list_data| %>
+    <% search_list_data.search_title_column do %>
+      <td class="page_name_search"><%= link_to site_page_search.name, admin_site_page_path(site_page_search) %></td>
+    <% end %>
+    <% search_list_data.search_url_column do %>
+      <td class="site_url_handle"><%= site_page_search.main_route.url_handle %></td>
+    <% end %>
+    <% search_list_data.search_type_column do %>
+      <td class="page_type"><%= site_page_search.class_name.to_readable %></td>
+    <% end %>
+    <% search_list_data.search_status_column do %>
+      <td class="status"><%= site_page_search.published ? 'Published' : 'Not Published' %></td>
+    <% end %>
+    <% search_list_data.search_actions_column do %>
+      <td class="actions">
+        <%= link_to 'Add Child', :controller => '/admin/site_pages', :action => 'new', :id => site_page_search.id %>
+        | <%= link_to "Edit", edit_admin_site_page_path(site_page_search) %>
+        | <%= link_to 'Delete', admin_site_page_path(site_page_search), :confirm => 'Are you sure?', :method => :delete %>
+      </td>
+    <% end %>
+  <% end %>
+</tr>

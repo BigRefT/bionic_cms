@@ -1,0 +1,34 @@
+<h1>Site Emails</h1>
+<%= render_region :top %>
+<div class="list_content" style="border: none;">
+  <%= render_region :before_list %>
+
+  <ul id="notifier_tabs" class="subsection_tabs">
+    <% render_region :tab_header do |tab_header| %>
+      <% tab_header.system_notifier_tab_header do %>
+        <% if @notifier_emails.length > 0 %>
+          <li class="tab"><a href="#system_notifier_tab_id">System Notifiers</a></li>
+        <% end %>
+      <% end %>
+      <% tab_header.custom_notifier_tab_header do %>
+        <li class="tab"><a href="#custom_notifier_tab_id">Contact Form Notifiers</a></li>
+      <% end %>
+    <% end %>
+  </ul>
+  <div class="clearfix"></div>
+  <%= render_region :tabs %>
+  <%= render_region :after_list %>
+</div>
+<% render_region :bottom do |bottom| %>
+  <% bottom.tab_javascript do %>
+    <% additional_script do %>
+      <%= javascript_include_tag ['livepipe/livepipe', 'livepipe/tabs'] %>
+      <%= javascript_tag(
+            "document.observe('dom:loaded',function(){\n" <<
+            "new Control.Tabs('notifier_tabs');\n" <<
+            "});\n"
+          )
+      %>
+    <% end %>
+  <% end %>
+<% end %>

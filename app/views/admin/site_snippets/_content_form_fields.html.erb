@@ -1,0 +1,23 @@
+<%= render_region :general_content_form_top %>
+
+<% render_region :general_content_form do |content_form| %>
+  <% content_form.content_form_editor do %>
+    <% if @site_snippet.is_text? %>
+    <%= render :partial => "/admin/shared/edit_area",
+               :locals => { :text_area_id => "site_snippet_content",
+                            :syntax => "html" } %>
+    <%= f.text_area :content, :label => "Content", :required => true, :style => "width: 99%;" %>
+    <% else %>
+    <%= f.fckeditor(:content, :toolbarSet => 'Bionic', :width => '99%', :height => '400px', :id => "site_snippet_content") %>
+    <% end %>
+  <% end %>
+<% end %>
+<% render_region :general_content_form_bottom do |content_form_bottom| %>
+  <% content_form_bottom.content_form_buttons do %>
+    <div class="show-save" style="margin: 10px;">
+      <%= f.submit "Save Content" %> 
+      | <span id="toggle_draft_link"><%= site_snippet_draft_toggle_link %></span>
+      | <%= link_to 'Back', admin_site_snippets_path %>
+    </div>
+  <% end %>
+<% end %>

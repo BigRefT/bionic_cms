@@ -1,0 +1,30 @@
+<% field_set_tag "#{save_label} Site Route" do -%>
+  <% render_region :form_top do |form_top| %>
+    <% form_top.edit_errors do %>
+      <%= error_messages_for :site_route %>
+    <% end %>
+  <% end %>
+  <% render_region :form do |form| %>
+    <% form.edit_url_handle do %>
+      <%= f.text_field :url_handle, :label => "Url Handle", :required => true, :help => "Absolute path that the user will type after the domain name. Include the leading forward slash." %>
+    <% end %>
+    <% form.edit_redirect_url do %>
+      <%= f.text_field :redirect_url, :label => "Redirect Url", :help => "Fully qualified url to send the user." unless @site_route.routeable %>
+    <% end %>
+    <% form.edit_301 do %>
+      <%= f.check_box :status_301, :label => "301 Redirect", :help => "Sets the header status to 301 - Moved permanently." unless @site_route.routeable %>
+    <% end %>
+    <% form.edit_exclude do %>
+      <%= f.check_box(
+            :exclude_from_store_location,
+            :label => "Exclude from Store Location?",
+            :help => "After login, Bionic will redirect the user to the previous page viewed. Should this route be excluded from this action? For example, you wouldn't want to go back to a reset password page after logging in."
+          ) %>
+    <% end %>
+  <% end %>
+  <% render_region :form_bottom do |form_bottom| %>
+    <% form_bottom.edit_buttons do %>
+      <%= f.submit_or_back save_label, admin_site_routes_path %>
+    <% end %>
+  <% end %>
+<% end %>

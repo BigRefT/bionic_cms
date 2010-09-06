@@ -1,0 +1,16 @@
+<li class="move_handle" id="site_menu_item_<%= site_menu_item.id %>">
+  <% render_region :item_list do |item_list| %>
+    <% item_list.actions_column do %>
+      <div class="actions fr">
+        <%= link_to 'Edit', edit_admin_site_menu_site_menu_item_path(site_menu_item.site_menu, site_menu_item) %> | 
+        <%= link_to 'Remove', admin_site_menu_site_menu_item_path(site_menu_item.site_menu, site_menu_item), :method => :delete, :confirm => "Are you sure?" %>
+      </div>
+    <% end %>
+    <% item_list.name_column do %>
+      <div class="site_menu_item_name"><%= site_menu_item.name %><% if site_menu_item.in_draft_mode? || site_menu_item.draft_new? %> <sup>**</sup><% end %></div>
+    <% end %>
+    <% item_list.url_column do %>
+      <div class="site_menu_item_url">&rarr;&nbsp;<%= truncate(site_menu_item.url.truncate_url, :length => 40) %><%= " : Sub Menu - #{site_menu_item.sub_site_menu.name}" if site_menu_item.sub_site_menu %></div>
+    <% end %>
+  <% end %>
+</li>

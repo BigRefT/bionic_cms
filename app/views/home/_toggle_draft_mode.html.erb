@@ -1,0 +1,7 @@
+<%= link_to_remote(
+      new_link_text,
+      :update => 'draft_site_link',
+      :url => new_link_url,
+      :complete => "new Effect.Highlight('draft_site_link', {duration: 3.0});"
+    )
+%>

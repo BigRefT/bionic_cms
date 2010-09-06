@@ -1,0 +1,30 @@
+<tr class="list_row">
+  <% render_region :list_data, :locals => { :profile => profile } do |list_data| %>
+    <% list_data.email_column do %>
+      <td class="name"><%= profile.site || (profile.site.nil? && Site.current_site_id.nil?) ? link_to(profile.email, edit_admin_profile_path(profile)) : profile.email %></td>
+    <% end %>
+    <% list_data.name_column do %>
+      <td><%= profile.full_name %></td>
+    <% end %>
+    <% list_data.has_account_column do %>
+      <td><%= profile.has_account? ? "Yes (#{profile.user.login})" : 'No' %></td>
+    <% end %>
+    <% list_data.user_groups_column do %>
+      <% if profile.has_account? %>
+        <td><% if profile.user.user_groups.length == 0 %>Registered User<% else %><% profile.user.user_groups.each do |ug| %><%= ug.name %><br /><% end %><% end %></td>
+      <% else %>
+        <td>Public Access</td>
+      <% end %>
+    <% end %>
+    <% list_data.actions_column do %>
+      <% if profile.has_account? %>
+        <td class="actions"><%= profile.user.site || (profile.user.site.nil? && Site.current_site_id.nil?) ? (profile.user.disabled? ? link_to('Enable', enable_admin_profile_path(profile)) : link_to('Disable', disable_admin_profile_path(profile))) : 'Super User' %></td>
+      <% else %>
+        <td>No Account</td>
+      <% end %>
+    <% end %>
+    <% list_data.site_column do %>
+      <% unless Site.current_site_id %><td class="profile_site"><%= profile.site ? profile.site.name : 'All' %></td><% end %>
+    <% end %>
+  <% end %>
+</tr>

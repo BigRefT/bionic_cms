@@ -1,0 +1,31 @@
+<% if @notifier_emails.length > 0 %>
+  <div class="list_content" id="system_notifier_tab_id">
+    <%= render_region :system_before_list %>
+    <table class="list_table">
+      <thead>
+        <tr>
+          <% render_region :system_list_headers do |system_list_headers| %>
+            <% system_list_headers.system_notifier_column_header do %>
+              <th>Notifier</th>
+            <% end %>
+            <% system_list_headers.system_actions_column_header do %>
+              <th>Actions</th>
+            <% end %>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% if @notifier_emails.length == 0 %>
+          <tr><td colspan="<%= admin_interface.site_emails.index.system_list_headers.length %>" class="no_entries">No Entries</td></tr>
+        <% else %>
+          <% @notifier_emails.each do |notifier_email| %>
+            <%= render :partial => 'system_notifier_header', :locals => { :notifier_name => notifier_email[:notifier] }%>
+            <%= render :partial => 'system_site_email', :collection => notifier_email[:site_emails], :as => :site_email %>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+    <%= render_region :system_after_list %>
+    <%= render_region :system_action_row %>
+  </div>
+<% end %>

@@ -1,0 +1,33 @@
+<h1>Showing User</h1>
+
+<p>
+  <b>First name</b><br />
+  <%%= h @user.first_name %>
+</p>
+<p>
+  <b>Last name</b><br />
+  <%%= h @user.last_name %>
+</p>
+<p>
+  <b>Email</b><br />
+  <%%= h @user.email %>
+</p>
+<p>
+	<b><span>L</span>ogin</b><br />
+  <%%= h @user.login %>
+</p>
+<p>
+  <b>User Groups</b><br />
+  <ul style="list-style: none;">
+    <%% 
+      @user.user_groups.each do |ug| 
+    %>
+       <%%= h ug.name %> <br/>
+    <%% 
+      end
+    %>
+  </ul>
+</p>
+
+<%%= link_to 'Edit', <%= namespace.blank? ? "edit_user_path(@user)" : "edit_#{namespace}_user_path(@user)" %> %> |
+<%%= link_to 'Back', <%= namespace.blank? ? "users_path" : "#{namespace}_users_path" %> %>

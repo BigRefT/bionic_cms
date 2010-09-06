@@ -1,0 +1,53 @@
+<%= render_region :general_content_form_top %>
+
+<% render_region :general_content_form do |content_form| %>
+  <% content_form.content_name_tabs do %>
+    <ul id="site_page_parts" class="subsection_tabs">
+      <li class="new-tab"><%= link_to "New Part", new_admin_site_page_site_page_part_url(@page) %></li>
+    <% @page.parts.each do |part| %>
+      <li class="tab"><a href="#site_part_<%= part.id %>"><%= part.name %><% if part.in_draft_mode? %> <sup>**</sup><% end %></a></li> 
+    <% end %>
+    </ul>
+    <div class="clearfix"></div>
+  <% end %>
+  <% content_form.content_form_editor do %>
+    <% init_only = false %>
+    <% @page.parts.each do |part| %>
+      <% fields_for "parts[]", part, :builder => ActionView::Helpers::FormBuilder do |part_form| %>
+      <div class="site_page_part_container" id="site_part_<%= part.id %>">
+        <div class="site_page_part_actions" id="site_page_part_<%= part.id %>_actions">
+          <%= render :partial => "content_form_part_actions", :locals => { :part => part } %>
+        </div>
+        <div class="site_page_part_content" id="site_page_part_<%= part.id %>_content">
+          <% if part.is_text? %>
+            <%= render :partial => "/admin/shared/edit_area",
+                       :locals => { :text_area_id => "parts_#{part.id}_content",
+                                    :syntax => "html",
+                                    :options => ", display: \"later\"",
+                                    :init_only => init_only } %>
+            <% init_only = true %>
+            <%= part_form.text_area :content, :style => "width: 99%;" %>
+          <% else %>
+            <%= part_form.fckeditor :content, :toolbarSet => 'Bionic', :width => '99%', :height => '400px', :id => "parts_#{part.id}_content" %>
+          <% end %>
+        </div>
+      </div>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+<% render_region :general_content_form_bottom do |content_form_bottom| %>
+  <% content_form_bottom.content_form_buttons do %>
+    <div class="site_part_submit">
+      <%= f.submit "Update Content" %>
+    </div>
+  <% end %>
+  <% content_form_bottom.general_tabs_javascript do %>
+    <%= javascript_tag(
+          "document.observe('dom:loaded',function(){\n" <<
+          "new Control.Tabs('site_page_parts');\n" <<
+          "});\n"
+        )
+    %>
+  <% end %>
+<% end %>

@@ -1,0 +1,33 @@
+<h1>Editing User Group</h1>
+
+<%% form_for(<%= namespace.blank? ? '@user_group' : "[:#{namespace}, @user_group]"  %>) do |f| %>
+  <%%= f.error_messages %>
+  <p>
+    <b>Name</b><br />
+    <%%= f.text_field :name %>
+  </p>
+  <p>
+    <b>Permissions</b><br />
+    <ul style="list-style: none;">
+      <%% 
+        @all_permissions.each_with_index do |perm,i|
+          input_id = "perm_#{perm.id}"
+          checked = (@user_group.permission_ids.include?(perm.id) ? "checked" : "")
+      %>
+          <li id="li_<%%= input_id %>">
+            <label for="<%%= input_id %>">
+            <input id="<%%= input_id %>" name="<%%= input_id %>" type="checkbox" <%%= checked %>/>&nbsp;&nbsp;<%%= perm.name %>
+            </label>
+          </li>
+      <%% 
+        end
+      %>
+    </ul>
+  </p>
+
+  <p> <%%= f.submit "Update" %> </p>
+<%% end %>
+
+
+<%%= link_to 'Show', <%= namespace.blank? ? '@user_group' : "#{namespace}_user_group_path(@user_group)" %> %> |
+<%%= link_to 'Back', <%= namespace.blank? ? 'user_groups_path' : "#{namespace}_user_groups_path" %> %>

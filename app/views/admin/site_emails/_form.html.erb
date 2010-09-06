@@ -1,0 +1,61 @@
+<% field_set_tag "#{save_label} Site Email" do -%>
+  <% render_region :form_top, :locals => { :f => f } do |form_top| %>
+    <% form_top.edit_errors do %>
+      <%= error_messages_for :site_email %>
+    <% end %>
+  <% end %>
+  <% render_region :form, :locals => { :f => f } do |form| %>
+    <% form.edit_notifier do %>
+      <div class="text-field required">
+        <label for="site_page_notifier_name">Notifier Name:<strong><sup>*</sup></strong></label>
+        <div class="input"><%= f.hidden_field :notifier_name %><%= @site_email.notifier_name.to_readable %></div>
+      </div>
+    <% end %>
+    <% form.edit_number_of_days do %>
+      <%= f.text_field :number_of_days_after_to_send, :label => "Send after n days:", :required => true, :help =>"The number of days after the event to send the email. 0 days means send immediately." %>
+    <% end %>
+    <% form.edit_active do %>
+      <%= f.radio_button_group :active,
+            [{:label => 'No', :value => false}, {:label => 'Yes', :value => true}],
+            :label => "Active?:"
+      %>
+    <% end %>
+    <% form.edit_subject do %>
+      <%= f.text_field :subject, :label => "Email Subject:", :required => true %>
+    <% end %>
+    <% form.edit_to_or_from do %>
+      <% if @site_email.notifier_name.end_with?("Notice") %>
+        <%= f.text_field :from, :label => "To:", :required => true, :help => "Address the notice will be sent to. Examples: `someone@domain.com' or `Some One &lt;someone@domain.com&gt;'" %>
+      <% else %>
+        <%= f.text_field :from, :label => "From:", :required => true, :help => "Address the email is from. Examples: `someone@domain.com' or `Some One &lt;someone@domain.com&gt;'" %>
+      <% end %>
+    <% end %>
+    <% form.edit_cc do %>
+      <%= f.text_field :cc, :label => "CC:", :help => "One or more email addresses. These addresses will receive a carbon copy of your email. Comma Separated." %>
+    <% end %>
+    <% form.edit_bcc do %>
+      <%= f.text_field :bcc, :label => "BCC:", :help => "One or more email addresses. These addresses will receive a blind carbon copy of your email. Comma Separated." %>
+    <% end %>
+    <% form.edit_reply_to do %>
+      <%= f.text_field :reply_to, :label => "Reply To:", :help => "Takes one or more email addresses. These addresses will be listed as the default recipients when replying to your email. Comma Separated." %>
+    <% end %>
+    <% form.edit_content_type do %>
+      <%= f.select :content_type, [["text/plain", "text/plain"], ["text/html", "text/html"]], :label => "Content Type:" %>
+    <% end %>
+    <% form.edit_snippet_id do %>
+      <%= f.select :site_snippet_id, @site_snippets.collect { |snippet| [snippet.name, snippet.id] }, :include_blank => "&lt;Select a Snippet&gt;", :label => "Site Snippet:" %>
+    <% end %>
+    <% form.edit_misc_data do %>
+      <% notifier = Bionic::EmailSettings.instance.notifier_by_name(@site_email.notifier_name) %>
+      <% if notifier && notifier[:misc_data_label].not_nil? %>
+        <%= f.text_field :misc_data, :label => notifier[:misc_data_label], :help => notifier[:misc_data_help] %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <% render_region :form_bottom, :locals => { :f => f } do |form_bottom| %>
+    <% form_bottom.edit_buttons do %>
+      <%= f.submit_or_back save_label, admin_site_emails_path %>
+    <% end %>
+  <% end %>
+<% end %>

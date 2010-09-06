@@ -1,0 +1,14 @@
+<% render_region :live_main do |live_main| %>
+  <% live_main.edit_area_settings do %>
+    <%= render :partial => "/admin/shared/edit_area",
+               :locals => { :text_area_id => "live_content_area",
+                            :syntax => "html",
+                            :init_only => true,
+                            :inline_script => true,
+                            :options => ", is_editable: false" }
+    %>
+  <% end %>
+  <% live_main.live_content do %>
+    <%= text_area_tag "live_content_area", h(@site_layout.live.content), :size => "60x20" %>
+  <% end %>
+<% end %>

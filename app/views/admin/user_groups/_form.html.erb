@@ -1,0 +1,32 @@
+<% field_set_tag "#{save_label} Site User Group" do -%>
+  <% render_region :form_top do |form_top| %>
+    <% form_top.edit_errors do %>
+      <%= error_messages_for :user_group %>
+    <% end %>
+  <% end %>
+  <% render_region :form do |form| %>
+    <% form.edit_name do %>
+      <%= f.text_field :name, :label => "Name", :required => true %>
+    <% end %>
+    <% form.edit_permissions do %>
+      <div class="check-box-field">
+        <label for="user-group-permissions">
+          Permissions<span class="help">If none selected then user gets base registered permissions (No admin functions).</span>
+        </label>
+        <div class="input">
+          <% @all_permissions.each_with_index do |perm,i|
+              input_id = "perm_#{perm.id}"
+              checked = (@user_group.permission_ids.include?(perm.id) ? "checked" : "") %>
+          <label for="<%= input_id %>" style="width: 22em;text-align:left;">
+            <input id="<%= input_id %>" name="<%= input_id %>" type="checkbox" <%= checked %>/>&nbsp;&nbsp;<%= perm.name %>
+          </label><% end %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+  <% render_region :form_bottom do |form_bottom| %>
+    <% form_bottom.edit_buttons do %>
+      <%= f.submit_or_back save_label, admin_user_groups_path %>
+    <% end %>
+  <% end %>
+<% end %>

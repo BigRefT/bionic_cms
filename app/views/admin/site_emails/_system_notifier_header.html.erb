@@ -1,0 +1,12 @@
+<tr class="layout_row list_row">
+  <% render_region :system_list_headers, :locals => { :notifier_name => notifier_name } do |system_list_headers| %>
+    <% system_list_headers.system_notifier_column_header do %>
+      <td class="name"><%= notifier_name.to_readable %></td>
+    <% end %>
+    <% system_list_headers.system_actions_column_header do %>
+      <td>
+        <%= link_to "Create Email", new_admin_site_email_path(:notifier_name => notifier_name) %>
+      </td>
+    <% end %>
+  <% end %>
+</tr>

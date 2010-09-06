@@ -1,0 +1,29 @@
+<p>
+  <b>Name</b><br />
+  <%%= h @user_group.name %>
+</p>
+<p>
+  <b>Permissions</b><br />
+  <%%
+    @user_group.permissions.each do |perm| 
+  %>
+      <%%= perm.name %><br/>
+  <%%
+    end
+  %>
+</p>
+<p>
+	<b>Users in user group:</b><br />
+	<%%
+	  @user_group.all_users.each do |user| 
+	%>
+	    <%%= link_to_or_show(user.full_name, <%= namespace.blank? ? 'user' : "#{namespace}_user_path(user)" %>) %><br/>
+	<%%
+    end
+	%>
+</p>
+
+<%% unless Lockdown::System.has_user_group?(@user_group) %>
+  <%%= link_to 'Edit', <%= namespace.blank? ? 'edit_user_group_path(@user_group)' : "edit_#{namespace}_user_group_path(@user_group)" %> %> |
+<%% end %>
+<%%= link_to 'Back', <%= namespace.blank? ? 'user_groups_path' : "#{namespace}_user_groups_path" %> %>

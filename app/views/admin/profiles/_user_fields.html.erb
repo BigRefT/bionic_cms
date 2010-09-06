@@ -1,0 +1,30 @@
+<% fields_for @profile.user do |user_form| %>
+  <% render_region :user_fields do |user_fields| %>
+    <% user_fields.edit_login do %>
+      <%= user_form.text_field :login, :label => "Login:", :required => true %>
+    <% end %>
+    <% user_fields.edit_password do %>
+      <%= user_form.password_field :password, :label => "Password:", :required => true %>
+    <% end %>
+    <% user_fields.edit_password_confirmation do %>
+      <%= user_form.password_field :password_confirmation, :label => "Confirmation:", :required => true %>
+    <% end %>
+    <% user_fields.edit_user_groups do %>
+      <% if @user.id != current_user_id %>
+        <div class="check-box-field">
+          <label for="user-user-groups">
+            User Groups:<span class="help">What does this user have rights to do? If none selected then user gets base registered permissions (Registered User).</span>
+          </label>
+          <div class="input">
+            <% @user_groups_for_user.each_with_index do |ug, i|
+                input_id = "ug_#{ug.id}"
+                checked = (@profile.user.user_group_ids.include?(ug.id) ? "checked" : "") %>
+            <label for="<%= input_id %>" style="width: 22em;text-align:left;">
+              <input id="<%= input_id %>" name="<%= input_id %>" type="checkbox" <%= checked %>/>&nbsp;&nbsp;<%= ug.name %>
+            </label><% end %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

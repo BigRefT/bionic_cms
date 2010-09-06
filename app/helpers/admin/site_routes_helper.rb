@@ -1,0 +1,2 @@
+module Admin::SiteRoutesHelper
+end

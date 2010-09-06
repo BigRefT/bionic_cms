@@ -1,0 +1,14 @@
+<tr>
+  <% render_region :list_data, :locals => { :permission => permission } do |list_data| %>
+    <% list_data.name_column do %>
+      <td class="name"><%= permission.name %></td>
+    <% end %>
+    <% list_data.user_groups_column do %>
+      <td><% permission.user_groups.each do |ug| %>
+        <%= ug.name + ', ' %><% end %>
+        <%= 'Public Access, ' if ['Customer', 'Store', 'Home', 'Sessions Management'].include?(permission.name) %>
+        <%= 'Administrator' %>
+      </td>
+    <% end %>
+  <% end %>
+</tr>

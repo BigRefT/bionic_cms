@@ -1,0 +1,13 @@
+<tr class="list_row">
+  <% render_region :list_data, :locals => { :site_snippet => site_snippet } do |list_data| %>
+    <% list_data.name_column do %>
+      <td class="name"><%= link_to site_snippet.name, admin_site_snippet_path(site_snippet) %><% if site_snippet.in_draft_mode? %> <sup>**</sup><% end %></td>
+    <% end %>
+    <% list_data.actions_column do %>
+      <td class="actions">
+        <%= link_to "Edit", edit_admin_site_snippet_path(site_snippet) %>
+        | <%= link_to 'Delete', admin_site_snippet_path(site_snippet), :confirm => 'Are you sure?', :method => :delete %>
+      </td>
+    <% end %>
+  <% end %>
+</tr>

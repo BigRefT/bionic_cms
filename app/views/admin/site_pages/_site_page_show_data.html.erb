@@ -1,0 +1,14 @@
+<% render_region :general_data do |page_data| %>
+  <% page_data.data_standard do %>
+    <tr><td class="header">Name:</td><td><%= @page.name %></td></tr>
+    <tr><td class="header">Breadcrumb:</td><td><%= @page.breadcrumb %></td></tr>
+    <tr><td class="header">Title:</td><td><%= @page.title %></td></tr>
+    <tr><td class="header">Meta Keywords:</td><td><%= @page.meta_keywords %></td></tr>
+    <tr><td class="header">Meta Description:</td><td><%= @page.meta_description %></td></tr>
+    <tr><td class="header">Layout:</td><td><%= @page.site_layout.name %></td></tr>
+    <tr><td class="header">Page Type:</td><td><%= @page.class_name %></td></tr>
+    <tr><td class="header">SSL Secured:</td><td><%= @page.ssl_required? ? "Yes" : "No" %></td></tr>
+    <tr><td class="header">Published:</td><td><%= @page.published? ? "Yes" : "No" %></td></tr>
+    <tr><td class="header">Published Date:</td><td><%= @page.published_at.to_s(:long) %></td></tr>
+  <% end %>
+<% end %>

@@ -1,0 +1,12 @@
+<% if !@page.theme_page? %>
+<h3>Page Routes (<%= link_to 'manage', admin_site_routes_path %>)</h3>
+<p>
+    Create routes to this page. Each new route must be an absolute path. For example: /about-us or /customer-service/faq.
+</p>
+<% form_tag add_site_route_admin_site_page_path do %>
+<table>
+  <tr><th>Current routes to this page:</th></tr><% @page.site_routes.each do |site_route| %>
+  <tr><td><%= truncate(site_route.url_handle.truncate_url, :length => 40) %></td></tr><% end %>
+  <tr><td><%= text_field_tag 'url_handle' %> <%= submit_tag 'New Route' %></td></tr>
+</table><% end %>
+<% end %>

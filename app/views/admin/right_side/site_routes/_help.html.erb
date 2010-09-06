@@ -1,0 +1,25 @@
+<div class="note">
+  <h3>Site Routes</h3>
+  <p>
+    Site Routes are used to map the site pages into human readable urls.
+    So instead of a cryptic url like /site_page/4 you can assign the page to /about-us.
+  </p>
+  <p>
+    There are multiple types of routes:
+    <ul>
+      <li>
+        Site Page Route - These are routes that go directly to a site page.
+        Edit a site page to add a new route to the page.
+        Click on a route to update an url added to a page.
+        <%= link_to 'Manage Page Sites', admin_site_pages_path %>
+      </li>
+      <li>
+        Redirect - This type of route lets you create a redirect url.
+        For example, you can have /pur redirect to http://www.purminerals.com.
+      </li>
+      <li>
+        301 Moved Permanently - Used to tell the referrer (Search Engine) that the page has been moved.
+      </li>
+    </ul>
+  </p>
+</div>

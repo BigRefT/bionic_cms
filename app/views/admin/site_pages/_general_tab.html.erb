@@ -1,0 +1,24 @@
+<div class="list_content" id="general_tab_id">
+  <% render_region :general_list_content do |list_content| %>
+    <% list_content.show_data do %>
+      <table class="left_table">
+        <%= render :partial => "site_page_show_data" %>
+      </table>
+    <% end %>
+
+    <% list_content.content_form_header do %>
+      <h3>Content:</h3>
+    <% end %>
+    <% list_content.content_form do %>
+      <% form_for :site_page, @page,
+          :url => update_parts_admin_site_page_path(@page),
+          :builder => ActionView::Helpers::FormBuilder,
+          :html => {
+            :id => "site_page_form_id",
+            :method => :put
+          } do |f| %>
+        <%= render :partial => 'content_form_fields', :locals => { :f => f } %>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>

@@ -1,0 +1,39 @@
+<% render_region :menu_top do |menu_top| %>
+  <% menu_top.break do %>
+    <br />
+  <% end %>
+<% end %>
+<div class="list_content">
+  <h3><%= site_menu.name %><% if site_menu.in_draft_mode? %> <sup>**</sup><% end %> <span class="heading_footnote">(<%= site_menu.handle %>)</span></h3>
+  <%= render_region :before_item_list %>
+  <ul class="list_table" id="site_menu_<%= site_menu.id %>">
+    <%= render :partial => 'site_menu_item', :collection => site_menu.items %>
+    <% if site_menu.items.length == 0 %>
+    <li>No Entries</li>
+    <% end %>
+  </ul>
+  <% render_region :after_item_list do |after_item_list| %>
+    <% after_item_list.sortable_javascript do %>
+      <%= sortable_element "site_menu_#{site_menu.id}", 
+            :complete => visual_effect(:highlight, "site_menu_#{site_menu.id}"), 
+            :url => order_admin_site_menu_path(site_menu) %>
+    <% end %>
+    <% after_item_list.pagination_links do %>
+      <%= empty_pagination_div %>
+    <% end %>
+  <% end %>
+  <div class="action_row">
+    <% render_region :menu_action_row do |menu_action_row| %>
+      <% menu_action_row.new_menu_link do %>
+        <%= link_to 'New Menu Item', new_admin_site_menu_site_menu_item_path(site_menu) %>
+      <% end %>
+      <% menu_action_row.draft_links do %>
+        | <span id="toggle_draft_link"><%= site_menu_draft_toggle_link(site_menu) %></span>
+      <% end %>
+      <% menu_action_row.remove_site_menu do %>
+        <span class="fr"><%= link_to 'remove', admin_site_menu_path(site_menu), :method => :delete, :confirm => "Are you sure?" %></span>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+<%= render_region :menu_bottom %>

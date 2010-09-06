@@ -1,0 +1,44 @@
+<% field_set_tag "#{save_label} Site" do -%>
+  <% render_region :form_top, :locals => { :f => f } do |form_top| %>
+    <% form_top.edit_errors do %>
+      <%= error_messages_for :site %>
+    <% end %>
+  <% end %>
+  <% render_region :form, :locals => { :f => f } do |form| %>
+    <% form.edit_name do %>
+      <%= f.text_field :name, :label => "Name:", :required => true %>
+    <% end %>
+    <% form.edit_domain do %>
+      <%= f.text_field :domain, :label => "Domain:", :required => true %>
+    <% end %>
+  <% end %>
+  <% render_region :form_bottom, :locals => { :f => f } do |form_bottom| %>
+    <% form_bottom.edit_buttons do %>
+      <%= f.submit_or_back save_label, admin_sites_path %>
+    <% end %>
+  <% end %>
+<% end %>
+<% if admin_interface.sites.edit.tab_headers.length > 0 %>
+  <% render_region :form_tabs, :locals => { :f => f } do |form_tabs| %>
+    <% form_tabs.tab_javascript do %>
+      <br />
+      <% additional_script do %>
+        <%= javascript_include_tag ['livepipe/livepipe', 'livepipe/tabs'] %>
+      <% end %>
+      <% additional_script do %>
+        <%= javascript_tag(
+              "document.observe('dom:loaded',function(){\n" <<
+              "new Control.Tabs('site_options_tabs');\n" <<
+              "});\n"
+            )
+        %>
+      <% end %>
+    <% end %>
+    <% form_tabs.tab_content do %>
+      <div class="list_content" style="border: none;">
+        <%= render :partial => 'form_tab_headers', :locals => { :f => f } %>
+        <%= render :partial => 'form_tabs', :locals => { :f => f } %>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

@@ -1,0 +1,23 @@
+<% field_set_tag "Upload Site Asset" do -%>
+  <% render_region :index_form_top do |index_form_top| %>
+    <% index_form_top.edit_index_errors do %>
+      <%= error_messages_for :site_asset %>
+    <% end %>
+  <% end %>
+  <% render_region :index_form do |index_form| %>
+    <% index_form.edit_index_filename do %>
+      <%= f.file_field :asset, :label => "Filename:", :required => true, :size => 25 %>
+    <% end %>
+    <% index_form.edit_index_display_name do %>
+      <%= f.text_field :display_name, :label => "Display Name:" %>
+    <% end %>
+    <% index_form.edit_index_tags do %>
+      <%= f.text_field :tag_list, :label => "Tags:", :help => "Comma separated." %>
+    <% end %>
+  <% end %>
+  <% render_region :index_form_bottom do |index_form_bottom| %>
+    <% index_form_bottom.edit_index_buttons do %>
+      <%= f.submit "Upload" %>
+    <% end %>
+  <% end %>
+<% end %>

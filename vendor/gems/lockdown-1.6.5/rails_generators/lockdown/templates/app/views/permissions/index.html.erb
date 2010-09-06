@@ -1,0 +1,16 @@
+<h1>Listing Permissions</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+  </tr>
+
+<%% for permission in @permissions %>
+  <tr>
+    <td><%%=h permission.name %></td>
+    <td><%%= link_to 'Show', <%= namespace.blank? ? 'permission_path(permission)' : "#{namespace}_permission_path(permission)" %> %></td>
+  </tr>
+<%% end %>
+</table>
+
+<br />

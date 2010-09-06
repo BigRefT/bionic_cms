@@ -1,0 +1,27 @@
+<%= f.hidden_field :site_menu_id %>
+<% field_set_tag "#{save_label} Site Menu Link" do -%>
+  <% render_region :form_top do |form_top| %>
+    <% form_top.edit_errors do %>
+      <%= error_messages_for :site_menu_item %>
+    <% end %>
+  <% end %>
+  <% render_region :form do |form| %>
+    <% form.edit_name do %>
+      <%= f.text_field :name, :label => "Link Name", :required => true %>
+    <% end %>
+    <% form.edit_site_route do %>
+      <%= f.select :site_route_id, SiteRoute.select_options, :label => "Link to Site Route" %>
+    <% end %>
+    <% form.edit_redirect_url do %>
+      <%= f.text_field :redirect_url, :label => "or Redirect to Url" %>
+    <% end %>
+    <% form.edit_site_menu_id do %>
+      <%= f.select :sub_site_menu_id, [["<Select a Menu>", ""]] + @site_menus.collect { |menu| [menu.name, menu.id] }, :label => "Link to Site Menu" %>
+    <% end %>
+  <% end %>
+  <% render_region :form_bottom do |form_bottom| %>
+    <% form_bottom.edit_buttons do %>
+      <%= f.submit_or_back save_label, admin_site_menus_url %>
+    <% end %>
+  <% end %>
+<% end %>

@@ -1,0 +1,133 @@
+class Admin::ProfilesController < ApplicationController
+
+  # GET /admin/profiles
+  def index
+    if session[:profile_search].not_nil? && params[:search].nil?
+      params[:search] = session[:profile_search]
+    end
+
+    if params[:search]
+      session[:profile_search] = params[:search]
+      @profiles = Profile.admin_search(params[:search], params[:page])
+    else
+      @profiles = Profile.paginate(:all, :page => params[:page], :order => 'email')
+    end
+
+    respond_to do |format|
+      format.html # index.html.erb
+    end
+  end
+
+  # GET /admin/profiles/new
+  def new
+    @profile = Profile.new
+    @profile.build_user
+    @user_groups_for_user = find_user_groups_for_user
+    respond_to do |format|
+      format.html # new.html.erb
+    end
+  end
+
+  # GET /admin/profiles/:id/edit
+  def edit
+    @profile = Profile.find(params[:id])
+    @user_groups_for_user = find_user_groups_for_user
+  end
+
+  # POST /admin/profiles
+  def create
+    @profile = Profile.new(params[:profile])
+    @profile.build_user(params[:user])
+    @profile.histories.build(:message => "Profile Created: by Admin")
+
+    respond_to do |format|
+      if @profile.save
+        update_user_groups
+        flash[:notice] = 'Profile was successfully created.'
+        format.html { redirect_to(admin_profiles_url) }
+      else
+        @user_groups_for_user = find_user_groups_for_user
+        format.html { render :action => "new" }
+      end
+    end
+  end
+
+  # PUT /admin/profiles/:id
+  def update
+    @profile = Profile.find(params[:id])
+
+    respond_to do |format|
+      @profile.user.attributes = params[:user] if params[:user]
+      @profile.attributes = params[:profile]
+      if @profile.save
+        update_user_groups
+        flash[:notice] = 'Profile was successfully updated.'
+        format.html { redirect_to(admin_profiles_url) }
+      else
+        @user_groups_for_user = find_user_groups_for_user
+        format.html { render :action => "edit" }
+      end
+    end
+  end
+
+  def enable
+    @profile = Profile.find(params[:id])
+    respond_to do |format|
+      @profile.user.disabled = false
+      if @profile.user.save
+        @profile.histories.create(:message => "Enabled")
+        flash[:notice] = 'Profile was successfully enabled.'
+        format.html { redirect_to(admin_profiles_url) }
+      else
+        format.html { render :action => "index" }
+      end
+    end
+  end
+
+  def disable
+    @profile = Profile.find(params[:id])
+    respond_to do |format|
+      @profile.user.disabled = true
+      if @profile.user.save
+        @profile.histories.create(:message => "Disabled")
+        flash[:notice] = 'Profile was successfully disabled.'
+        format.html { redirect_to(admin_profiles_url) }
+      else
+        format.html { render :action => "index" }
+      end
+    end
+  end
+
+  private
+
+  def update_user_groups
+    return if @profile.user.nil? || @profile.user.id == current_user_id
+    new_ug_ids = params.collect{|p| p[0].split("_")[1].to_i if p[0] =~ /^ug_/}.compact
+    # Removed previously associated user_groups if not checked this time.
+    #
+    @profile.user.user_groups.dup.each do |g|
+      unless new_ug_ids.include?(g.id)
+        @profile.user.user_groups.delete(g)
+        @profile.histories.create(:message => "Removed from #{g.name} user group")
+      end
+    end
+    # Add in the new permissions
+    #
+    new_ug_ids.each do |id|
+      next if @profile.user.user_group_ids.include?(id)
+      ug = UserGroup.find(id)
+      @profile.user.user_groups << ug
+      @profile.histories.create(:message => "Added to #{ug.name} user group")
+    end
+  end
+
+  def find_user_groups_for_user
+    if current_user_is_admin?
+      UserGroup.find(:all)
+    elsif current_user_access_in_group?(:site_administrators)
+      UserGroup.all_for_current_site
+    else
+      Lockdown::System.user_groups_assignable_for_user(current_user)
+    end
+  end
+end

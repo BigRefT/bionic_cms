@@ -1,0 +1,39 @@
+<tr id="site_asset-<%= site_asset.id.to_s %>" class="asset_row list_row">
+  <% render_region :list_data, :locals => { :site_asset => site_asset } do |list_data| %>
+    <% list_data.icon_column do %>
+      <td class="asset_preview"><%= display_type_image_or_thumb(site_asset) %></td>
+    <% end %>
+    <% list_data.name_column do %>
+      <td class="asset_file_name"><%= site_asset.name %></td>
+     <% end %>
+     <% list_data.urls_column do %>
+      <td class="asset_url">
+        <%= link_to(site_asset.url, site_asset.url) %>
+        <% if site_asset.image_type? %>
+        <br /><%= link_to(site_asset.url(:thumb), site_asset.url(:thumb)) %>
+        <% end %>
+      </td>
+     <% end %>
+    <% list_data.actions_column do %>
+      <td class="actions">
+        <%= link_to "Info", "#", :id => "asset_#{site_asset.id}_info" %>
+        | <%= link_to("Update", edit_admin_site_asset_path(site_asset)) %>
+        | <%= link_to 'Delete', admin_site_asset_path(site_asset), :confirm => 'Are you sure?', :method => :delete %>
+        <% if site_asset.compressed_type? %> | <%= link_to("Decompress", decompress_admin_site_asset_path(site_asset))%><% end %>
+        <div id="asset_<%= site_asset.id %>_tooltip" class="asset_tooltip">
+          <div class="header"><%= site_asset.display_name %></div>
+          <div class="tooltip_content">
+            <span>Filename: </span><%= site_asset.name %><br/>
+            <span>File Size: </span><%= number_to_human_size(site_asset.asset_file_size) %><br />
+            <span>Content Type: </span><%= site_asset.asset_content_type %><br />
+            <span>Tags:</span><br />
+            <%= site_asset.tag_list%>
+          </div>
+        </div>
+        <script type="text/javascript">
+          var asset_<%= site_asset.id %>_tooltip = new Tooltip('asset_<%= site_asset.id %>_info', 'asset_<%= site_asset.id %>_tooltip')
+        </script>
+      </td>
+    <% end %>
+  <% end %>
+</tr>

@@ -1,0 +1,9 @@
+<div class="list_content" id="general_tab_id">
+  <% render_region :general_list_content do |list_content| %>
+    <% list_content.show_data do %>
+      <table class="left_table">
+        <%= render :partial => "site_snippet_show_data" %>
+      </table>
+    <% end %>
+  <% end %>
+</div>

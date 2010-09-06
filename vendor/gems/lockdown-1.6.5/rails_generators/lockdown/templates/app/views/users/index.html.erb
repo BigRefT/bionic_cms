@@ -1,0 +1,22 @@
+<h1>Listing Users</h1>
+
+<table>
+  <tr>
+    <th>Login</th>
+    <th>Name</th>
+  </tr>
+
+<%% @users.each do |user| %>
+  <tr>
+    <td><%%=h user.login %></td>
+    <td><%%=h user.full_name %></td>
+    <td><%%= link_to 'Show', <%= namespace.blank? ? "user_path(user)" : "#{namespace}_user_path(user)" %> %></td>
+    <td><%%= link_to 'Edit', <%= namespace.blank? ? "edit_user_path(user)" : "edit_#{namespace}_user_path(user)" %> %></td>
+    <td><%%= link_to 'Destroy', <%= namespace.blank? ? "user_path(user)" : "#{namespace}_user_path(user)" %>, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<%% end %>
+</table>
+
+<br />
+
+<%%= link_to 'New User', <%= namespace.blank? ? "new_user_path" : "new_#{namespace}_user_path" %> %>

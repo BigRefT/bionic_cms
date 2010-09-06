@@ -1,0 +1,11 @@
+<% render_region :live_main do |live_main| %>
+  <% live_main.live_item_list do %>
+    <table style="width:95%; text-align: center; margin: 5px; border: none;">
+      <% if live_items.length == 0 %>
+        <tr><td colspan="3">No Entries</td></tr>
+      <% else %>
+        <%= render :partial => 'live_site_menu_item', :collection => live_items, :as => site_menu_item %>
+      <% end %>
+    </table>
+  <% end %>
+<% end %>

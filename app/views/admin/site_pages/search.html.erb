@@ -1,0 +1,38 @@
+<h1>Site Pages</h1>
+<% render_region :search_top do |search_top| %>
+  <% search_top.pagination_counts do %>
+    <p><%= will_paginate_record_display(@site_pages) %></p>
+  <% end %>
+<% end %>
+<div class="list_content">
+  <%= render_region :search_before_list %>
+  <table class="site_page_index list_table" id="site_page_index_id">
+    <thead>
+      <tr>
+        <% render_region :search_headers do |search_headers| %>
+          <% search_headers.search_title_column_header do %><th>Name</th><% end %>
+          <% search_headers.search_url_column_header do %><th>Url Handle</th><% end %>
+          <% search_headers.search_type_column_header do %><th>Type</th><% end %>
+          <% search_headers.search_status_column_header do %><th>Status</th><% end %>
+          <% search_headers.search_actions_column_header do %><th>Actions</th><% end %>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @site_pages.length == 0 %>
+        <tr><td colspan="<%= admin_interface.site_pages.search.search_list_data.length %>" class="no_entries">No Site Pages</td></tr>
+      <% else %>
+        <%= render :partial => 'site_page_search', :collection => @site_pages %>
+      <% end %>
+    </tbody>
+  </table>
+  <% render_region :search_after_list do |search_after_list| %>
+    <% search_after_list.pagination_links do %>
+      <%= will_paginate_links(@site_pages) %>
+    <% end %>
+  <% end %>
+  <div class="action_row">
+    <%= render_region :search_action_row %>
+  </div>
+</div>
+<%= render_region :search_bottom %>

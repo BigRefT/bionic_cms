@@ -1,0 +1,19 @@
+= Validates Proper Liquid Syntax
+
+An ActiveRecord validation that validates that a certain field conforms to
+Liquid syntax.
+
+== Example
+
+  class UserLiquidTemplate < ActiveRecord::Base
+    validates_proper_liquid_syntax :template
+  end 
+
+== Requirements
+
+This plugin requires the Liquid gem.  
+
+  http://github.com/tobi/liquid
+
+
+Copyright (c) 2009 Bruce Hauman, released under the MIT license

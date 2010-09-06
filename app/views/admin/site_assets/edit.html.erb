@@ -1,0 +1,13 @@
+<% render_region :main do |main| %>
+  <% main.edit_area_script do %>
+    <%= render :partial => "/admin/shared/edit_area",
+               :locals => { :text_area_id => "site_asset_content",
+                            :syntax => "css",
+                             :options => ", begin_toolbar: \"syntax_selection\"" } if @site_asset.editable_type? %>
+  <% end %>
+  <% main.edit_form do %>
+    <% form_for [:admin, @site_asset], :html => {:class => 'semantic-form'} do |f| %>
+      <%= render :partial => 'form', :locals => { :f => f } %>
+    <% end %>
+  <% end %>
+<% end %>

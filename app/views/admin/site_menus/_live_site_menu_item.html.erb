@@ -1,0 +1,13 @@
+<tr>
+  <% render_region :live_list do |live_list| %>
+    <% live_list.live_name_column do %>
+      <td nowrap><%= site_menu_item.name %></td>
+    <% end %>
+    <% live_list.live_arrow_column do %>
+      <td>&nbsp;&rarr;&nbsp;</td>
+    <% end %>
+    <% live_list.live_url_column do %>
+      <td nowrap><%= truncate(site_menu_item.url.truncate_url, :length => 40) %><%= " : Sub Menu - #{site_menu_item.sub_site_menu.name}" if site_menu_item.sub_site_menu %></td>
+    <% end %>
+  <% end %>
+</tr>

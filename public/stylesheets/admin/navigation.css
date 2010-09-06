@@ -1,0 +1,150 @@
+/*		Navigation core 	*/
+
+#toolbar_menu_id {
+	position: relative;
+}
+
+#toolbar_menu_id ul {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	list-style-type: none;
+}
+
+#toolbar_menu_id li {
+	font-size: 1em;
+	line-height: 1;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	display: block;
+	float: right;
+}
+
+#toolbar_menu_id a {
+	margin: 0;
+	display: block;
+}
+
+#toolbar_menu_id li ul {
+	width: 100%;
+	min-width: 100%;
+	display: block;
+	visibility: hidden;
+	position: absolute;
+	clear: both;
+	top: 1.2em;/* watch for this value! you must make sure that this value and value of line-height for the parent items are such that it is possible to move the mouse over to submenu */
+	left: 0;
+}
+
+#toolbar_menu_id li.selected ul,
+#toolbar_menu_id li:hover ul,
+#toolbar_menu_id li.over ul {
+	visibility: visible;
+	left: 0;
+}
+
+#toolbar_menu_id li.selected ul {
+	z-index: 10;
+}
+
+#toolbar_menu_id li:hover ul,
+#toolbar_menu_id li.over ul {
+	z-index: 100;
+}
+
+#toolbar_menu_list_id:after {
+	content: ".";
+	height: 0;
+	display: block;
+	overflow: hidden;
+	visibility: hidden;
+	clear: both;
+}
+
+/*		Navigation make-up 	*/
+
+#toolbar_menu_id {
+	font-size: 1em;
+	font-weight: bold;
+	color: #fff;
+	background-color: #d1a55e;
+	width: 100%;
+}
+
+.staging #toolbar_menu_id {
+	background-color: #9B5254;
+}
+
+.development #toolbar_menu_id {
+	background-color: #5DA8C6;
+}
+
+#toolbar_menu_id a {
+	color: #fff;
+	text-decoration: none;
+	padding: 0.5em 5px 0.7em;
+}
+
+#toolbar_menu_id li {
+	margin: 0;
+	border-right: 1px dotted #fff;
+}
+
+#toolbar_menu_id li.last {
+	border-left: 1px dotted #fff;
+}
+
+#toolbar_menu_id li:hover,
+#toolbar_menu_id li.over {
+	color: black;
+	background-color: #ede993;
+}
+
+#toolbar_menu_id li:hover ul,
+#toolbar_menu_id li.over ul {
+	background-color: #ede993;
+}
+
+#toolbar_menu_id li:hover a,
+#toolbar_menu_id li.over a {
+	color: #000;
+}
+
+/* always pay attention that this two values are such that it is possible to move the mouse over to submenu */
+#toolbar_menu_id li ul {
+	line-height: 2.5;
+	top: 2em;
+	color: #000;
+	background-color: #acb58b;
+}
+
+#toolbar_menu_id li li {
+	border-right: 1px dotted #fff;
+}
+
+#toolbar_menu_id li li a {
+	color: #000;
+}
+
+#toolbar_menu_id li li a:hover,
+#toolbar_menu_id li li a.over {
+	text-decoration: underline;
+}
+
+/* fix the colors for selected item and submenu, for better usability */
+
+#toolbar_menu_id li.selected a,
+#toolbar_menu_id li.selected,
+#toolbar_menu_id li.selected:hover a,
+#toolbar_menu_id li.active_over {
+	color: #000;
+}
+
+#toolbar_menu_id li.selected,
+#toolbar_menu_id li.selected:hover a,
+#toolbar_menu_id li.selected:hover ul,
+#toolbar_menu_id li.active_over a,
+#toolbar_menu_id li.active_over ul {
+	background-color: #acb58b;
+}

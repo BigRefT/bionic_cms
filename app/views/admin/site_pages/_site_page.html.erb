@@ -1,0 +1,34 @@
+<tr id="page-<%= site_page.id %>" class="level-<%= level %><%= children_class(site_page) %> list_row">
+  <% render_region :list_data, :locals => { :site_page => site_page, :level => level } do |list_data| %>
+    <% list_data.title_column do %>
+      <td class="name wide_name" style="padding-left: <%= padding_left(level) %>px;">
+        <span class="name-spacer">
+          <%= expander site_page %>
+          <%= link_to(
+                site_page.name,
+                admin_site_page_path(site_page),
+                {:title => site_page.url}
+              )
+          %>
+          <%= spinner site_page %>
+        </span>
+      </td>
+    <% end %>
+    <% list_data.type_column do %>
+      <td><%= site_page.class_name.to_readable %></td>
+    <% end %>
+    <% list_data.status_column do %>
+      <td><%= site_page.published ? 'Published' : 'Not Published' %></td>
+    <% end %>
+    <% list_data.actions_column do %>
+      <td class="actions">
+        <%= link_to 'Add Child', :controller => '/admin/site_pages', :action => 'new', :id => site_page.id %>
+        | <%= link_to "Edit", edit_admin_site_page_path(site_page) %>
+        | <%= link_to 'Delete', admin_site_page_path(site_page), :confirm => 'Are you sure?', :method => :delete %>
+      </td>
+    <% end %>
+  <% end %>
+</tr>
+<%= render :partial => 'site_page',
+            :collection => site_page.children.find(:all, :order => "name"),
+            :locals => { :site_page => site_page, :level => level + 1 } if site_page.children and expanded(site_page) -%>

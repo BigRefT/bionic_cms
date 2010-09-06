@@ -1,0 +1,26 @@
+<% render_region :right_side do |right_side| %>
+  <% right_side.search do %>
+    <% form_tag admin_site_assets_path, {:method => 'get', :id => 'admin_search_form', :autocomplete => 'off'} do %>
+      <%= text_field_tag :search, params[:search] %><%= submit_tag 'Go' %>
+    <% end %>
+  <% end %>
+  <% right_side.quick_search do %>
+    <h3>Quick Searches</h3>
+    <p>
+      <%= link_to "css", admin_site_assets_path + "/?search=.css" %> - Cascading Style Sheets<br />
+      <%= link_to "gif", admin_site_assets_path + "/?search=.gif" %> - GIF Images<br />
+      <%= link_to "html", admin_site_assets_path + "/?search=.htm" %> - HTML Pages<br />
+      <%= link_to "jpg", admin_site_assets_path + "/?search=.jpg" %> - JPEG Images<br />
+      <%= link_to "pdf", admin_site_assets_path + "/?search=.pdf" %> - PDF Files<br />
+      <%= link_to "png", admin_site_assets_path + "/?search=.png" %> - PNG Images<br />
+    </p>
+  <% end %>
+  <% right_side.tag_cloud do %>
+    <h3>Tags</h3>
+    <p><% if SiteAsset.tag_counts.length > 0 %>
+      <% tag_cloud(SiteAsset.tag_counts, (1 .. 5).map { |i| "tag-level-#{i}" }) do |tag, level| %>
+      &nbsp;<span class="<%= level %>"><%= link_to tag, admin_site_assets_path + "/?search=tags:#{u(tag)}" %></span>&nbsp;
+      <% end %><% end %>
+    </p>
+  <% end %>
+<% end %>

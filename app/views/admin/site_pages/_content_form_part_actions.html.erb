@@ -1,0 +1,12 @@
+<% render_region :general_content_form_part_actions do |content_form_part_actions| %>
+  <% content_form_part_actions.draft_part do %>
+    <%= site_page_part_draft_toggle_link(part) %>
+  <% end %>
+  <% content_form_part_actions.edit_part do %>
+    | <%= link_to "Edit Part", edit_admin_site_page_site_page_part_url(@page, part) %>
+  <% end %>
+  <% content_form_part_actions.delete_part do %>
+    | <%= link_to 'Delete Part', admin_site_page_site_page_part_url(@page, part), :confirm => 'Are you sure?', :method => :delete %>
+    |&nbsp;
+  <% end %>
+<% end %>

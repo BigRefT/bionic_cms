@@ -1,0 +1,7 @@
+<% form_for :user, :url => {:controller => 'sessions', :action => 'create'} do |f|
+  field_set_tag "Login" do -%>
+    <%= f.text_field 'login', :label => 'Login:', :required => true %>
+    <%= f.password_field 'password', :label => 'Password:', :required => true %>
+    <%= f.submit 'Log in' %>
+  <% end -%>
+<% end -%>

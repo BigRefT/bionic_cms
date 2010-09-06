@@ -1,0 +1,26 @@
+<% field_set_tag "Update Site Asset" do -%>
+  <% render_region :form_top do |form_top| %>
+    <% form_top.edit_errors do %>
+      <%= error_messages_for :site_asset %>
+    <% end %>
+  <% end %>
+  <% render_region :form do |form| %>
+    <% form.edit_display_name do %>
+      <%= f.text_field :display_name, :label => "Display Name:" %>
+    <% end %>
+    <% form.edit_filename do %>
+      <%= f.text_field :asset_file_name, :label => "Name", :required => true, :help => "Be careful here. Changing the extension could cause the file to not show properly." %>
+    <% end %>
+    <% form.edit_tags do %>
+      <%= f.text_field :tag_list, :label => "Tags:", :help => "Comma separated." %>
+    <% end %>
+    <% form.edit_content do %>
+      <%= f.text_area :content, :label => "Content:" if @site_asset.editable_type? %>
+    <% end %>
+  <% end %>
+  <% render_region :form_bottom do |form_bottom| %>
+    <% form_bottom.edit_buttons do %>
+      <%= f.submit_or_back("Update", admin_site_assets_path) %>
+    <% end %>
+  <% end %>
+<% end %>

@@ -1,0 +1,15 @@
+<% render_region :right_side do |right_side| %>
+  <% right_side.right_theme_pages do %>
+    <h3>Theme Pages</h3>
+    <ul>
+      <% ThemePage.page_types_for_select.sort_by { |p| p.first }.each do |theme_type| %>
+        <% theme_page = @theme_pages.select { |page| page.class_name == theme_type[1] } %>
+        <% if theme_page.empty? %>
+        <li><%= theme_type[0] %> (<%= link_to "Create", new_admin_site_page_path(:theme => theme_type[1]) %>)</li>
+        <% else %>
+        <li><%= link_to theme_page.first.name, admin_site_page_path(theme_page.first) %> (<%= theme_page.first.class_name %>)</li>
+        <% end %>
+      <% end %>
+    </ul>
+  <% end %>
+<% end %>

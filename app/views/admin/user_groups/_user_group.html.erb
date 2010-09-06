@@ -1,0 +1,22 @@
+<tr>
+  <% render_region :list_data, :locals => { :user_group => user_group } do |list_data| %>
+    <% list_data.name_column do %>
+      <td class="name" valign="top"><%= user_group.name %></td>
+    <% end %>
+    <% list_data.permissions_column do %>
+      <td><% user_group.permissions.find(:all, :order => "name").each do |perm| %>
+        <%= perm.name %><%= '<br />' unless perm == user_group.permissions.last %><% end %>
+      </td>
+    <% end %>
+    <% list_data.actions_column do %>
+      <td valign="top">
+        <% if user_group.site_id.nil? %>
+        System User Group (can't modify)
+        <% else %>
+        <%= link_to('Edit', edit_admin_user_group_path(user_group)) %> |
+        <%= link_to('Delete', admin_user_group_path(user_group), :confirm => 'Are you sure?', :method => :delete) %>
+        <% end %>
+      </td>
+    <% end %>
+  <% end %>
+</tr>

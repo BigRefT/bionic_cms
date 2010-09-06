@@ -1,0 +1,21 @@
+<tr class="list_row">
+  <% render_region :list_data, :locals => { :site_route => site_route } do |list_data| %>
+    <% list_data.url_handle_column do %>
+      <td class="name"><%= link_to(truncate(site_route.url_handle.truncate_url, :length => 40), edit_admin_site_route_path(site_route)) %></td>
+    <% end %>
+    <% list_data.arrow_column do %>
+      <td>&nbsp;&rarr;&nbsp;<%= '<br />301' if site_route.status_301 %></td>
+    <% end %>
+    <% list_data.site_page_column do %>
+      <td>
+        <%= truncate(site_route.routeable ? site_route.routeable.name : site_route.redirect_url) %>
+        <% if site_route.main_route %> (main route) <% end %>
+      </td>
+    <% end %>
+    <% list_data.actions_column do %>
+      <td class="actions"><% unless site_route.main_route %>
+        <%= link_to 'Delete', admin_site_route_path(site_route), :confirm => 'Are you sure?', :method => :delete %><% end %>
+      </td>
+    <% end %>
+  <% end %>
+</tr>

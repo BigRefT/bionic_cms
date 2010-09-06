@@ -1,0 +1,43 @@
+<% if @page.always_public? %>
+<div class="note">
+  <h3>Always Public</h3>
+  <p>This page will always be available to the public.<p>
+</div>
+<% else %>
+<h3>User Group Access</h3>
+<p>
+  Select the user groups that have access to this page.
+  The Registered Users group is to allow access to anyone logged in. Public Access is for everyone; even guest to the site.
+  If no user groups are checked then public access will be assumed.
+</p>
+<% form_tag update_user_groups_admin_site_page_path do %>
+<table>
+  <% @user_groups_for_user.each do |user_group| %><% input_id = "ug_#{user_group.id}" %>
+  <tr>
+    <td>
+      <input id="<%= input_id %>" name="<%= input_id %>" type="checkbox"<%= @page.user_group_ids.include?(user_group.id) ? ' checked' : '' %> />
+      <label for="<%= input_id %>"> <%= user_group.name %></label>
+    </td>
+  </tr><% end %>
+  <tr>
+    <td>
+      <input id="allow_registered_users" name="allow_registered_users" type="checkbox"<%= @page.allow_registered_users? ? ' checked' : '' %> />
+      <label for="allow_registered_users">Registered Users</label>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <input id="allow_public_access" name="allow_public_access" type="checkbox"<%= @page.allow_public_access? ? ' checked' : '' %> />
+      <label for="allow_public_access"> Public Access</label>
+    </td>
+  </tr>
+  <tr><td><%= submit_tag 'Update User Groups' %></td></tr>
+  <tr>
+    <td>
+      <input id="recursive" name="recursive" type="checkbox" checked />
+      <label for="recursive"> Apply recursively to all children.</label>
+    </td>
+  </tr>
+</table>
+<% end %>
+<% end %>

@@ -1,0 +1,40 @@
+<h1>Site Layouts</h1>
+<% render_region :top do |top| %>
+  <% top.pagination_counts do %>
+    <p><%= will_paginate_record_display(@site_layouts) %></p>
+  <% end %>
+<% end %>
+<div class="list_content">
+  <%= render_region :before_list %>
+  <table class="list_table">
+    <thead>
+      <tr>
+        <% render_region :list_headers do |list_headers| %>
+          <% list_headers.name_column_header do %><th>Name</th><% end %>
+          <% list_headers.content_type_column_header do %><th>Content Type</th><% end %>
+          <% list_headers.actions_column_header do %><th>Actions</th><% end %>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @site_layouts.length == 0 %>
+        <tr><td colspan="<%= admin_interface.site_layouts.index.list_data.length %>" class="no_entries">No Site Layouts</td></tr>
+      <% else %>
+         <%= render :partial => 'site_layout', :collection => @site_layouts %>
+      <% end %>
+    </tbody>
+  </table>
+  <% render_region :after_list do |after_list| %>
+    <% after_list.pagination_links do %>
+      <%= will_paginate_links(@site_layouts) %>
+    <% end %>
+  <% end %>
+  <div class="action_row">
+    <% render_region :action_row do |action_row| %>
+      <% action_row.new_site_layout do %>
+        <%= link_to 'New Layout', new_admin_site_layout_path %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+<%= render_region :bottom %>

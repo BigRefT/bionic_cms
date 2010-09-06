@@ -1,0 +1,13 @@
+<h1>Site Menus</h1>
+<div class="action_row">
+  <% render_region :action_row do |action_row| %>
+    <% action_row.new_site_menu do %>
+      <%= link_to 'New Site Menu', new_admin_site_menu_url %>
+    <% end %>
+  <% end %>
+</div>
+<% render_region :menu_list do |menu_list| %>
+  <% menu_list.site_menus do %>
+    <%= render :partial => 'site_menu', :collection => @site_menus %>
+  <% end %>
+<% end %>
