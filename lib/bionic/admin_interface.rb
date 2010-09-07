@@ -180,7 +180,7 @@ module Bionic
           edit.form_top.concat %w{edit_errors}
           edit.form.concat %w{edit_display_name edit_filename edit_tags edit_content}
           edit.form_bottom.concat %w{edit_buttons}
-          edit.right_side.concat %w{help}
+          edit.right_side.concat %w{}
         end
       end
     end
