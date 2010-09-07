@@ -35,10 +35,10 @@ unless File.directory? "#{RAILS_ROOT}/app"
           exit 1
         end
 
-        bionic_git = "git@github.com:astralbrands/bionic_cms.git"
+        bionic_git = "git://github.com/BigRefT/bionic_cms.git"
 
         if File.exist?("vendor/bionic/.git/HEAD")
-          system "cd vendor/bionic; git checkout gemify; git pull origin gemify"
+          system "cd vendor/bionic; git checkout master; git pull origin master"
         else
           system "git clone #{bionic_git} vendor/bionic"
         end
