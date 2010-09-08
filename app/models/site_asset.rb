@@ -12,7 +12,8 @@ class SiteAsset < ActiveRecord::Base
   has_attached_file :asset,
                     :url => "/:attachment/:current_site_id/:style/:basename.:extension",
                     :path => ":rails_root/public/:attachment/:current_site_id/:style/:basename.:extension",
-                    :styles => { :thumb => "32x32>" }
+                    :styles => { :thumb => "32x32>" },
+                    :whiny => false
   validates_attachment_presence :asset
 
   named_scope :by_display_name, lambda { |*order| { :order => "display_name #{order || 'ASC'}" } }
