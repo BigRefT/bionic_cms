@@ -14,6 +14,7 @@ class TextFieldTag < FieldTag
   private
 
   def html_attributes
+    @no_hidden_checkbox = parse_attribute(@attributes.delete('no_hidden')).to_boolean
     @input_type = "text"
     html_attributes = ""
     @attributes.each do |key, value|
@@ -31,7 +32,7 @@ class TextFieldTag < FieldTag
         @attributes['id'] += "_#{@attributes['value']}"
       when 'checkbox'
         @input_type = "checkbox"
-        if form_options[:found_in_model] && @context.registers[form_options[:register_key]].send("#{@name}?".to_sym)
+        if form_options[:found_in_model] && @context.registers[form_options[:register_key]].respond_to?("#{@name}?".to_sym) && @context.registers[form_options[:register_key]].send("#{@name}?".to_sym)
           html_attributes += render_attribute("checked", "checked")
         end
       else
@@ -46,7 +47,9 @@ class TextFieldTag < FieldTag
     html_attribute_string = html_attributes
     # create field
     rvalue = ""
-    rvalue += HiddenFieldTag.new("hidden_field_tag", "#{@name} value:0", nil).render(@context) if @input_type == "checkbox"
+    if @input_type == "checkbox" && !@no_hidden_checkbox
+      rvalue += HiddenFieldTag.new("hidden_field_tag", "#{@name} id:#{@attributes['id']} name:#{@attributes['name']} value:0", nil).render(@context)
+    end
     rvalue += "<input type=\"#{@input_type}\"#{html_attribute_string} />"
     rvalue
   end

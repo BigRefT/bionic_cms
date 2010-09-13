@@ -9,7 +9,10 @@ class CheckBoxFieldTag < Liquid::Tag
   end
 
   def render(context)
-    TextFieldTag.new("text_field", @markup + " value:1 checkbox:true", nil).render(context)
+    additional_markup = " checkbox:true"
+    # if no value then assume boolean (0,1)
+    additional_markup += " value:1" unless @markup.include? " value:"
+    TextFieldTag.new("text_field", @markup + additional_markup, nil).render(context)
   end
 end
 Liquid::Template.register_tag('check_box_field', CheckBoxFieldTag)
