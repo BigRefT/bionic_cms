@@ -1,4 +1,5 @@
 class Admin::ProfilesController < ApplicationController
+  before_filter :find_profile, :only => [:edit, :update, :enable, :disable]
 
   # GET /admin/profiles
   def index
@@ -30,7 +31,6 @@ class Admin::ProfilesController < ApplicationController
 
   # GET /admin/profiles/:id/edit
   def edit
-    @profile = Profile.find(params[:id])
     @user_groups_for_user = find_user_groups_for_user
   end
 
@@ -54,8 +54,6 @@ class Admin::ProfilesController < ApplicationController
 
   # PUT /admin/profiles/:id
   def update
-    @profile = Profile.find(params[:id])
-
     respond_to do |format|
       @profile.user.attributes = params[:user] if params[:user]
       @profile.attributes = params[:profile]
@@ -71,7 +69,6 @@ class Admin::ProfilesController < ApplicationController
   end
 
   def enable
-    @profile = Profile.find(params[:id])
     respond_to do |format|
       @profile.user.disabled = false
       if @profile.user.save
@@ -85,7 +82,6 @@ class Admin::ProfilesController < ApplicationController
   end
 
   def disable
-    @profile = Profile.find(params[:id])
     respond_to do |format|
       @profile.user.disabled = true
       if @profile.user.save
@@ -129,5 +125,9 @@ class Admin::ProfilesController < ApplicationController
     else
       Lockdown::System.user_groups_assignable_for_user(current_user)
     end
+  end
+
+  def find_profile
+    @profile = Profile.find(params[:id])
   end
 end
