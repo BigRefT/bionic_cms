@@ -70,7 +70,7 @@ module Bionic
     def parse_name
       if @attributes['name'].empty_or_nil?
         if form_options[:form_model].not_nil? && form_options[:found_in_model]
-          value = "#{form_options[:form_model]}[#{@name.underscore}]"
+          value = "#{form_options[:form_model]}[#{@name.to_s.underscore}]"
         else
           value = "#{context_value(@name).to_s.underscore}"
         end
@@ -81,7 +81,7 @@ module Bionic
     def parse_id
       if @attributes['id'].empty_or_nil?
         if form_options[:form_model].not_nil? && form_options[:found_in_model]
-          value = "#{form_options[:form_model]}_#{@name.underscore}"
+          value = "#{form_options[:form_model]}_#{@name.to_s.underscore}"
         else
           value = "#{context_value(@name).to_s.underscore}"
         end
