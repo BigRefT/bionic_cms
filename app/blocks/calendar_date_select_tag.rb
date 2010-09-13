@@ -98,7 +98,7 @@ class CalendarDateSelectTag < Liquid::Tag
       case key
       when 'name', 'value'
         # nothing
-      when 'embedded', 'time', 'buttons', 'disabled', 'readonly', 'hidden'
+      when 'embedded', 'buttons', 'disabled', 'readonly', 'hidden'
         @attributes[key.to_sym] = ["true", "1"].include?(strip_quotes(value))
       when 'minute_interval'
         @attributes[key.to_sym] = strip_quotes(value).to_i
