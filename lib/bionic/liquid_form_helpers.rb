@@ -1,6 +1,28 @@
 module Bionic
   module LiquidFormHelpers
     include ERB::Util
+    include ActionView::Helpers
+    include ActionView::Helpers::ActiveRecordHelper
+    include ActionView::Helpers::AssetTagHelper
+    include ActionView::Helpers::AtomFeedHelper
+    include ActionView::Helpers::BenchmarkHelper
+    include ActionView::Helpers::CacheHelper
+    include ActionView::Helpers::CaptureHelper
+    include ActionView::Helpers::DateHelper
+    include ActionView::Helpers::DebugHelper
+    include ActionView::Helpers::FormHelper
+    include ActionView::Helpers::FormOptionsHelper
+    include ActionView::Helpers::FormTagHelper
+    include ActionView::Helpers::NumberHelper
+    include ActionView::Helpers::PrototypeHelper
+    include ActionView::Helpers::RecordIdentificationHelper
+    include ActionView::Helpers::RecordTagHelper
+    include ActionView::Helpers::SanitizeHelper
+    include ActionView::Helpers::ScriptaculousHelper
+    include ActionView::Helpers::TagHelper
+    include ActionView::Helpers::TextHelper
+    include ActionView::Helpers::TranslationHelper
+    include ActionView::Helpers::UrlHelper
 
     def render_attribute(key, value)
       " #{key}=\"#{html_escape(parse_attribute(value))}\""
