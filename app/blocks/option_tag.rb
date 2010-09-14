@@ -9,7 +9,7 @@ class OptionTag < FieldTag
   def html_attributes
     @option_text = @attributes.delete('text')
     html_attributes = super
-    if @context['select_value'].to_s == @attributes['value'].to_s
+    if @context['select_value'].to_s == parse_attribute(@attributes['value']).to_s
       html_attributes += render_attribute('selected', 'selected')
     end
     html_attributes
