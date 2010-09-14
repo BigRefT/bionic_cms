@@ -1,7 +1,7 @@
 <% render_region :right_side do |right_side| %>
   <% right_side.search do %>
     <% form_tag admin_site_snippets_path, {:method => 'get', :id => 'admin_search_form', :autocomplete => 'off'} do %>
-      <%= text_field_tag :search, params[:search] %><%= submit_tag 'Go' %>
+      <%= text_field_tag :search, params[:search] %><%= submit_tag 'Go', :disable_with => "Searching..." %>
     <% end %>
   <% end %>
 <% end %>
