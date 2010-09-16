@@ -31,6 +31,7 @@ class Admin::ProfilesController < ApplicationController
   # GET /admin/profiles/:id/edit
   def edit
     @user_groups_for_user = find_user_groups_for_user
+    @histories = @profile.histories.find(:all, :limit => 10)
   end
 
   # POST /admin/profiles

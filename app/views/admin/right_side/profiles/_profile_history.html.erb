@@ -1,8 +1,11 @@
 <div id="history">
   <h3>Profile History</h3>
+  <% if @histories.empty? %>
+  <p>No history...</p>
+  <% else %>
   <table cellspacing="0">
     <% previous_date = nil %>
-    <% @profile.histories.find(:all, :limit => 10).each do |history| %>
+    <% @histories.each do |history| %>
     <% if previous_date != history.created_at_long_date %>
     <tr class="log-date">
       <td colspan="2"><%= history.created_at_long_date %></td>
@@ -19,4 +22,5 @@
     <% end %>
   </table>
   <p>Showing the 10 most recent entries.</p>
+  <% end %>
 </div>
