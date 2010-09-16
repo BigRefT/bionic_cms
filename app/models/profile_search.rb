@@ -9,6 +9,10 @@ class ProfileSearch < ActiveRecord::BaseWithoutTable
   end
 
   def profiles
+    if Site.current_site_id.nil?
+      return Profile.paginate(:all, :page => page, :per_page => per_page, :order => :email)
+    end
+
     if phrase.empty_or_nil?
       Profile.search(
         :with => with,
