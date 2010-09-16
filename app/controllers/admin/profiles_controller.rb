@@ -3,16 +3,15 @@ class Admin::ProfilesController < ApplicationController
 
   # GET /admin/profiles
   def index
-    if session[:profile_search].not_nil? && params[:search].nil?
-      params[:search] = session[:profile_search]
+    load_saved_profile_search
+    if params[:clear]
+      clear_profile_search
     end
-
-    if params[:search]
-      session[:profile_search] = params[:search]
-      @profiles = Profile.admin_search(params[:search], params[:page])
-    else
-      @profiles = Profile.paginate(:all, :page => params[:page], :order => 'email')
+    if @profile_search.nil?
+      create_new_profile_search
     end
+    save_profile_search
+    search_profiles
 
     respond_to do |format|
       format.html # index.html.erb
@@ -129,5 +128,33 @@ class Admin::ProfilesController < ApplicationController
 
   def find_profile
     @profile = Profile.find(params[:id])
+  end
+
+  def load_saved_profile_search
+    if session[:profile_search].not_nil? && params[:profile_search].nil?
+      @profile_search = session[:profile_search]
+    end
+  end
+
+  def clear_profile_search
+    @profile_search = nil
+    params[:profile_search] = nil
+  end
+
+  def create_new_profile_search
+    @profile_search = ProfileSearch.new(new_profile_search_params)
+    @profile_search.page = params[:page] || 1
+  end
+
+  def new_profile_search_params
+    params[:profile_search]
+  end
+
+  def save_profile_search
+    session[:profile_search] = @profile_search
+  end
+
+  def search_profiles
+    @profiles = @profile_search.profiles
   end
 end

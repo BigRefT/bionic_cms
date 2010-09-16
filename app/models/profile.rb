@@ -45,30 +45,6 @@ class Profile < ActiveRecord::Base
       profiles = Profile.by_cookie_token(token)
       profiles.empty_or_nil? ? nil : profiles.first.id
     end
-  
-    def admin_search(search_phrase, page)
-      if search_phrase =~ /^user_group:/
-        user_group = search_phrase.split(":")[1]
-        user_group.strip!
-        
-        search(
-          :conditions => { :user_group_names => "#{user_group}", :site_id => Site.current_site_id },
-          :order => :email,
-          :page => page
-        )
-      else
-        if search_phrase.empty_or_nil?
-          paginate :page => page, :order => '`profiles`.email'
-        else
-          search(
-            "*#{search_phrase}*",
-            :conditions => { :site_id => Site.current_site_id },
-            :order => :email,
-            :page => page
-          )
-        end
-      end
-    end
 
     def form_for_find(id, profile_id)
       Profile.find(:first, :conditions => ["id = ?", profile_id])

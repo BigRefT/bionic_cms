@@ -1,0 +1,26 @@
+<% form_tag admin_profiles_path, {:method => 'get', :id => 'admin_search_form', :autocomplete => 'off'} do %>
+  <h3>Search</h3>
+  <p>
+    <%= text_field_tag 'profile_search[phrase]', @profile_search.phrase %><%= submit_tag 'Go', :disable_with => "Searching..." %>
+    <br />
+  </p>
+  <h3>Advanced Options</h3>
+  <p>
+    <table>
+      <% render_region :right_side_advanced_search_fields do |right_side_advanced_search_fields| %>
+        <% right_side_advanced_search_fields.search_per_page do %>
+          <tr>
+            <td colspan="2">Per Page:</td>
+            <td><%= select_tag 'profile_search[per_page]', options_for_select(ProfileSearch.per_page_select_options, @profile_search.per_page.to_s) %></td>
+          </tr>
+        <% end %>
+        <% right_side_advanced_search_fields.search_buttons do %>
+          <tr><td colspan="3">&nbsp;</td></tr>
+          <tr>
+            <td colspan="3" align="left"><%= submit_tag 'Go', :disable_with => "Searching..." %> <%= submit_tag 'Clear', :name => "clear", :disable_with => "Clearing..." %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </table>
+  </p>
+<% end %>

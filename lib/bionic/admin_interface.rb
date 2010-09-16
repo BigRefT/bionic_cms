@@ -140,6 +140,7 @@ module Bionic
           index.action_row.concat %w{new_user}
           index.bottom.concat %w{}
           index.right_side.concat %w{search user_group_search}
+          index.right_side_advanced_search_fields.concat %w{search_per_page search_buttons}
         end
         profile.edit = RegionSet.new do |edit|
           edit.main.concat %w{edit_form}

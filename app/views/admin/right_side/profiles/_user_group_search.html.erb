@@ -1,0 +1,6 @@
+<h3>Find by User Group</h3>
+<p>
+  <% UserGroup.all_for_current_site.each do |user_group| %>
+  <%= link_to user_group.name, admin_profiles_path + "/?profile_search[phrase]=user_group:#{u(user_group.name)}" %><br />
+  <% end %>
+</p>
