@@ -38,7 +38,7 @@ class InstanceGenerator < Rails::Generator::Base
       m.directory ""
       
       # Standard files and directories
-      base_dirs = %w(config config/environments config/initializers db lib lib/lockdown log script public vendor/plugins vendor/extensions)
+      base_dirs = %w(config config/environments config/initializers db lib lib/tasks lib/lockdown log script public vendor/plugins vendor/extensions)
       text_files = %w(CHANGELOG CONTRIBUTORS LICENSE INSTALL README lib/lockdown/init.rb)
       environments = Dir["#{root}/config/environments/*.rb"]
       scripts = Dir["#{root}/script/**/*"].reject { |f| f =~ /(destroy|generate|plugin)$/ }
