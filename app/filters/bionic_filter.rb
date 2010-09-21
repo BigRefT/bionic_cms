@@ -52,6 +52,7 @@ module BionicFilter
   def asset_image_url(image_path, style = "original")
     "/assets/#{Site.current_site_id || 'admin'}/#{style}/#{image_path}"
   end
+  alias :asset_url :asset_image_url
 
   def link_to_original_asset(text, file_name)
     link_to text, "/assets/#{Site.current_site_id || 'admin'}/original/#{file_name.strip.gsub(/[^\w\d\.\-]+/, '_')}"
