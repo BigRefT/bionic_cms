@@ -121,7 +121,7 @@ class CalendarDateSelectTag < Liquid::Tag
   private
 
   def strip_quotes(value)
-    value =~ Bionic::QuotedAttribute ? $1 : value
+    value =~ Bionic::QuotedAttribute ? ($1 || $2) : value
   end
 
 end

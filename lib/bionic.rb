@@ -22,7 +22,7 @@ unless defined? Bionic::ImageContentTypes
   module Bionic
     ImageContentTypes = ['image/jpeg', 'image/pjpeg', 'image/gif', 'image/png', 'image/x-png', 'image/jpg']
 
-    QuotedAttribute = /("[^"]+"|'[^']+')/
+    QuotedAttribute = /"([^"]+)"|'([^']+)'/
     EmailValidation = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
     PhoneValidation = /^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4})$/
   end

@@ -116,7 +116,7 @@ class FormForBlock < Liquid::Block
 
   def parse_attribute(value)
     if value =~ Bionic::QuotedAttribute
-      $1
+      $1 || $2
     else
       @context[value] || value
     end

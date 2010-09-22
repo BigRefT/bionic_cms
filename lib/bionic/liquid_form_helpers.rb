@@ -30,7 +30,7 @@ module Bionic
 
     def parse_attribute(value)
       if value =~ Bionic::QuotedAttribute
-        $1
+        $1 || $2
       else
         context_value(value)
       end
