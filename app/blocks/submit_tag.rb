@@ -21,7 +21,7 @@ class SubmitTag < Liquid::Tag
 
     asset_name = @attributes.delete('asset_name')
     if asset_name && @attributes['src'].empty_or_nil? && ['true', '"true"'].include?(@attributes['image'])
-      @attributes['src'] = "/assets/#{Site.current_site_id || 'admin'}/original/#{parse_attribute(asset_name)}"
+      @attributes['src'] = "\"/assets/#{Site.current_site_id || 'admin'}/original/#{parse_attribute(asset_name)}\""
     end
 
     @attributes.each do |key, value|
