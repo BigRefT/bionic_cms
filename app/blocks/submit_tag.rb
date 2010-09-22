@@ -15,6 +15,7 @@ class SubmitTag < Liquid::Tag
   end
 
   def render(context)
+    @context = context
     html_attributes = success_url = ""
     input_type = "submit"
 
@@ -27,28 +28,28 @@ class SubmitTag < Liquid::Tag
       case key
       when 'value' # skip
       when 'success_url'
-        success_url = HiddenFieldTag.new("hidden_field_tag", "success_url #{render_success_url("value", value, context)}", nil).render(context)
+        success_url = HiddenFieldTag.new("hidden_field_tag", "success_url #{render_success_url("value", value)}", nil).render(@context)
       when 'image'
         input_type = "image" if ['true', '"true"'].include?(value)
       else
-        html_attributes += render_attribute(key, value, context)
+        html_attributes += render_attribute(key, value)
       end
     end
     
     rvalue = success_url
-    value = render_attribute("value", @input_label, context)
+    value = render_attribute("value", @input_label)
     rvalue += "<input type=\"#{input_type}\" #{value}#{html_attributes}>"
     rvalue
   end
 
   private
   
-  def render_success_url(key, value, context)
-    rvalue = render_attribute(key, value, context)
+  def render_success_url(key, value)
+    rvalue = render_attribute(key, value)
     rvalue.gsub("=", ":")
   end
 
-  def render_attribute(key, value, context)
+  def render_attribute(key, value)
     " #{key}=\"#{parse_attribute(value)}\""
   end
 
