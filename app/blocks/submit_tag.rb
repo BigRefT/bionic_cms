@@ -17,6 +17,12 @@ class SubmitTag < Liquid::Tag
   def render(context)
     html_attributes = success_url = ""
     input_type = "submit"
+
+    asset_name = @attributes.delete('asset_name')
+    if asset_name && @attributes['src'].empty_or_nil?
+      @attributes['src'] = "/assets/#{Site.current_site_id || 'admin'}/original/#{asset_name}"
+    end
+
     @attributes.each do |key, value|
       case key
       when 'value' # skip
