@@ -19,8 +19,8 @@ class SubmitTag < Liquid::Tag
     input_type = "submit"
 
     asset_name = @attributes.delete('asset_name')
-    if asset_name && @attributes['src'].empty_or_nil?
-      @attributes['src'] = "/assets/#{Site.current_site_id || 'admin'}/original/#{asset_name}"
+    if asset_name && @attributes['src'].empty_or_nil? && ['true', '"true"'].include?(@attributes['image'])
+      @attributes['src'] = "/assets/#{Site.current_site_id || 'admin'}/original/#{parse_attribute(asset_name)}"
     end
 
     @attributes.each do |key, value|
@@ -29,7 +29,7 @@ class SubmitTag < Liquid::Tag
       when 'success_url'
         success_url = HiddenFieldTag.new("hidden_field_tag", "success_url #{render_success_url("value", value, context)}", nil).render(context)
       when 'image'
-        input_type = "image" if value == 'true' || value == '"true"'
+        input_type = "image" if ['true', '"true"'].include?(value)
       else
         html_attributes += render_attribute(key, value, context)
       end
@@ -49,11 +49,19 @@ class SubmitTag < Liquid::Tag
   end
 
   def render_attribute(key, value, context)
-    if value =~ /".+"/
-      return " #{key}=#{value}"
+    " #{key}=\"#{parse_attribute(value)}\""
+  end
+
+  def parse_attribute(value)
+    if value =~ Bionic::QuotedAttribute
+      $1
     else
-      return " #{key}=\"#{context[value] || value}\""
+      context_value(value)
     end
+  end
+
+  def context_value(value)
+    @context[value] || value
   end
 
 end
