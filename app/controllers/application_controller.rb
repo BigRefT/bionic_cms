@@ -10,8 +10,10 @@ class ApplicationController < ActionController::Base
   prepend_before_filter :get_site_from_hostname, :set_status
 
   def render_optional_error_file(status_code)
+    # don't render any error files from public
+    # and always go to the home page
     flash[:error] = "Unexpected Error: We are sorry for the inconvenience and have been notified of the problem."
-    redirect_to "/", :status => status_code
+    redirect_to "/"
   end
 
   def template_name
