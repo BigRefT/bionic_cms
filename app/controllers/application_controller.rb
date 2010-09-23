@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
 
   def render_optional_error_file(status_code)
     flash[:error] = "Unexpected Error: We are sorry for the inconvenience and have been notified of the problem."
-    redirect_to "/", :status => interpret_status(status_code)
+    redirect_to "/", :status => status_code
   end
 
   def template_name
