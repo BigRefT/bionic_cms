@@ -9,9 +9,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   prepend_before_filter :get_site_from_hostname, :set_status
 
-  def rescue_action_in_public(exception)
+  def render_optional_error_file(status_code)
     flash[:error] = "Unexpected Error: We are sorry for the inconvenience and have been notified of the problem."
-    redirect_to "/" 
+    redirect_to "/", :status => interpret_status(status_code)
   end
 
   def template_name
