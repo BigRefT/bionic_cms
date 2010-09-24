@@ -151,11 +151,11 @@ class Page < ActiveRecord::Base
     def render_assigns(kontroller)
       assigns = {
         'page' => SitePageDrop.new(self),
-        'menus' => SiteMenuCollectionDrop.new, # moved to site
-        'flash' => FlashDrop.new(kontroller.send(:flash)), # moved to site
+        'menus' => SiteMenuCollectionDrop.new, # moved to site - TODO - delete
+        'flash' => FlashDrop.new(kontroller.send(:flash)), # moved to site - TODO - delete
         'user' => UserDrop.new(kontroller.send(:current_user), kontroller.send(:current_profile)),
-        'environment' => Rails.env, # moved to site
-        'form_authenticity_token' => kontroller.send(:form_authenticity_token), # moved to site
+        'environment' => Rails.env, # moved to site - TODO - delete
+        'form_authenticity_token' => kontroller.send(:form_authenticity_token), # moved to site - TODO - delete
         'site' => SiteDrop.new(kontroller)
       }
       Bionic::Extension.descendants.each do |ext|
