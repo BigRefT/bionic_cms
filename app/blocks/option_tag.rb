@@ -7,7 +7,6 @@ class OptionTag < FieldTag
   private
 
   def html_attributes
-    @option_text = @attributes.delete('text')
     html_attributes = super
     if @context['select_value'].to_s == parse_attribute(@attributes['value']).to_s
       html_attributes += render_attribute('selected', 'selected')
@@ -16,8 +15,9 @@ class OptionTag < FieldTag
   end
 
   def field_html
+    option_text = html_escape(parse_attribute(@attributes.delete('text')))
     rvalue = "<option#{html_attributes}>"
-    rvalue += html_escape(parse_attribute(@option_text))
+    rvalue += option_text
     rvalue += "</option>"
     rvalue
   end
