@@ -5,7 +5,7 @@ class SiteDrop < Liquid::Drop
   end
 
   def form_authenticity_token
-    @kontroller.send(:form_authenticity_token)
+    kontroller.send(:form_authenticity_token)
   end
 
   def environment
@@ -21,13 +21,17 @@ class SiteDrop < Liquid::Drop
   end
 
   def flash
-    FlashDrop.new(@kontroller.send(:flash))
+    FlashDrop.new(kontroller.send(:flash))
   end
 
   private
 
   def current_site
     @current_site ||= Site.current_site
+  end
+
+  def kontroller
+    @kontroller
   end
 
 end
