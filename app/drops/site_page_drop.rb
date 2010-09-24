@@ -72,7 +72,7 @@ class SitePageDrop < Liquid::Drop
   def before_method(value)
     if value =~ /([\w]+)_part/
       found = @site_page.part($1)
-      found.nil? ? nil : found.active_revision(@context['draft_mode']).content
+      found.nil? ? nil : found.active_revision(@context['site'].draft_mode).content
     end
   end
 

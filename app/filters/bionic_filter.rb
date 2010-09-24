@@ -67,7 +67,7 @@ module BionicFilter
   def snippet(name)
     rvalue = ""
     snippet = SiteSnippet.find_by_name(name)
-    rvalue = snippet.active_revision(@context['draft_mode']).content if snippet
+    rvalue = snippet.active_revision(@context['site'].draft_mode).content if snippet
     rvalue
   end
   

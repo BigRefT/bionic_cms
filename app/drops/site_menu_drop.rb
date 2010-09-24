@@ -14,7 +14,7 @@ class SiteMenuDrop < Liquid::Drop
   
   def items
     rvalue = []
-    @site_menu.active_item_revisions(@context['draft_mode']).each do |site_menu_item|
+    @site_menu.active_item_revisions(@context['site'].draft_mode).each do |site_menu_item|
       rvalue << SiteMenuItemDrop.new(site_menu_item)
     end
     rvalue
