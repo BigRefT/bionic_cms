@@ -81,7 +81,7 @@ class FormForBlock < Liquid::Block
           @context.registers[@register_key].errors.each_full { |error| @context['errors_each'] << error.to_s }
         end
       end
-      super.each { |a| result << a }
+      result << render_all(@nodelist, @context)
     end
     result << "</form>"
     # delete form_item_ from register to keep scope

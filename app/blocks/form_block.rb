@@ -8,7 +8,7 @@ class FormBlock < Liquid::Block
     @context = context
     rvalue = "<form method=\"post\" action=\"#{parse_attribute(@form_action)}\">"
     rvalue += "<div style=\"margin: 0pt; padding: 0pt;\"><input type=\"hidden\" value=\"#{@context.registers['form_authenticity_token']}\" name=\"authenticity_token\"/></div>"
-    super.each { |a| rvalue += a }
+    rvalue << render_all(@nodelist, @context)
     rvalue += "</form>"
     rvalue
   end

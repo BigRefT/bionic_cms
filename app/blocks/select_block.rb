@@ -24,7 +24,7 @@ class SelectBlock < Liquid::Block
     rvalue << "<select#{html_attributes}>"
     @context.stack do
       @context['select_value'] = parse_attribute(@select_value).to_s
-      super.each { |a| rvalue << a }
+      rvalue << render_all(@nodelist, @context)
     end
     rvalue << "</select>"
     rvalue << "</div>" if form_options[:error_found]
