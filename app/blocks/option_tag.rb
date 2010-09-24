@@ -15,10 +15,17 @@ class OptionTag < FieldTag
   end
 
   def field_html
-    option_text = html_escape(parse_attribute(@attributes.delete('text')))
+    text = @attributes.delete('text')
+    option_text = html_escape(parse_attribute(text))
     rvalue = "<option#{html_attributes}>"
     rvalue += option_text
     rvalue += "</option>"
+
+    # put the text variable back incase we are in called in a for block
+    # in this case if we delete then the next interation will not have text
+    # I am only doing it for option and leaving the others alone for now
+    # TODO - put all deletes back for all custom tags and blocks
+    @attributes['text'] = text
     rvalue
   end
 
