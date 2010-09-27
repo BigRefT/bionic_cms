@@ -27,8 +27,8 @@ module ApplicationHelper
     rvalue
   end
 
-  def will_paginate_links(collection)
-    will_paginate(collection) || empty_pagination_div
+  def will_paginate_links(collection, options = {})
+    will_paginate(collection, options) || empty_pagination_div
   end
   
   def empty_pagination_div
