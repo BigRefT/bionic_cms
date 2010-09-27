@@ -10,14 +10,14 @@ class LabelForTag < FieldTag
   private
 
   def html_attributes
-    @label_text = @attributes.delete('text')
+    @label_text = attributes.delete('text')
     @label_text ||= "#{@name.titleize}"
 
-    if @attributes['for'].empty_or_nil?
+    if attributes['for'].empty_or_nil?
       if form_options[:form_model]
-        @attributes['for'] = "#{form_options[:form_model]}_#{@name.underscore}"
+        attributes['for'] = "#{form_options[:form_model]}_#{@name.underscore}"
       else
-        @attributes['for'] = "#{context_value(@name).to_s.underscore}"
+        attributes['for'] = "#{context_value(@name).to_s.underscore}"
       end
     end
     super

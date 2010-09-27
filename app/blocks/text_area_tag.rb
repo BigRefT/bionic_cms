@@ -10,7 +10,7 @@ class TextAreaTag < FieldTag
   private
 
   def html_attributes
-    @area_value = @attributes.delete('value')
+    @area_value = attributes.delete('value')
     super
   end
 

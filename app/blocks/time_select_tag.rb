@@ -1,5 +1,4 @@
 class TimeSelectTag < FieldTag
-
   def initialize(tag_name, markup, tokens)
     begin
       super(tag_name, markup, tokens)
@@ -12,27 +11,27 @@ class TimeSelectTag < FieldTag
 
   def field_html
     # get date value
-    value = @attributes.delete('value')
+    value = attributes.delete('value')
     value = DateTime.parse(value) if value.is_a? String
-    twelve_hour = parse_attribute(@attributes.delete('twelve_hour')).to_boolean
-    minute_step = parse_attribute(@attributes.delete('minute_step')).to_i
+    twelve_hour = parse_attribute(attributes.delete('twelve_hour')).to_boolean
+    minute_step = parse_attribute(attributes.delete('minute_step')).to_i
 
     time_options = {
       :tag => true, #forces the creation of hidden date fields
       :field_name => @name,
-      :prefix => @attributes.delete('prefix') || @form_options[:form_model],
+      :prefix => attributes.delete('prefix') || @form_options[:form_model],
       :include_position => true,
-      :time_separator => @attributes.delete('time_separator') || " : ",
+      :time_separator => attributes.delete('time_separator') || " : ",
       :twelve_hour => twelve_hour
     }
     time_options[:minute_step] = minute_step if minute_step > 0
 
     # delete name/id from attributes
-    @attributes.delete('name')
-    @attributes.delete('id')
-    @attributes.symbolize_keys!
+    attributes.delete('name')
+    attributes.delete('id')
+    attributes.symbolize_keys!
 
-    DateTimeSelector.new(value, time_options, @attributes).select_time
+    DateTimeSelector.new(value, time_options, attributes).select_time
   end
 
 end

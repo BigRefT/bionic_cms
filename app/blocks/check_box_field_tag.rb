@@ -1,7 +1,7 @@
 class CheckBoxFieldTag < Liquid::Tag
   
   def initialize(tag_name, markup, tokens)
-    unless markup =~ TextFieldTag::Syntax
+    unless markup =~ FieldTag::Syntax
       raise Liquid::SyntaxError.new("Syntax Error in 'check_box_field' - Valid syntax: check_box_field [name]")
     end
 

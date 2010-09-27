@@ -20,7 +20,7 @@ class FormForBlock < Liquid::Block
     method = 'post'
     html_attributes = ""
 
-    @attributes.each do |key, value|
+    attributes.each do |key, value|
       case key
       when 'method'
         method = parse_attribute(value)
@@ -86,6 +86,10 @@ class FormForBlock < Liquid::Block
     result << "</form>"
     # delete form_item_ from register to keep scope
     @context.registers.delete(@register_key) if @form_model.not_nil?
+    # clear the attribute_copy so the next
+    # pass will get a fresh copy from the original
+    @attributes_copy = nil
+    # return rendered result
     result
   end
   
@@ -141,6 +145,14 @@ class FormForBlock < Liquid::Block
       @register_key = "form_#{@form_action}"
       @action = @context.registers[:controller].send(:request).protocol + @context.registers[:controller].send(:request).host + @action
     end
+  end
+
+  # make a copy of the original so we can cover the case of this tag being in a for loop.
+  # In this case the first interation will be fine, but if the tag/block deletes an attribute
+  # then the second iteration will be missing that attribute.
+  def attributes
+    # leave the original alone
+    @attributes_copy ||= @attributes.dup
   end
 end
 Liquid::Template.register_tag('form_for', FormForBlock)

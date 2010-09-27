@@ -1,5 +1,5 @@
 class FieldTag < Liquid::Tag
-  Syntax = /([\w\.]+)/
+  Syntax = /([\w\.]+)/ unless defined? Syntax
 
   # <length:##> <class:form_class> <id:form_id>
   def initialize(tag_name, markup, tokens)
@@ -18,7 +18,13 @@ class FieldTag < Liquid::Tag
   def render(context)
     @context = context
     parse_attributes
-    render_field
+    result = render_field
+
+    # clear the attribute_copy so the next
+    # pass will get a fresh copy from the original
+    @attributes_copy = nil
+    # return rendered result
+    result
   end
 
   private

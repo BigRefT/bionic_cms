@@ -46,6 +46,7 @@ module Bionic
       parse_value
       parse_id
       parse_name
+      parse_custom
     end
 
     def form_options
@@ -75,9 +76,9 @@ module Bionic
     end
 
     def parse_value
-      default_value = @attributes.delete('default_value')
-      if @attributes['value'].empty_or_nil?
-        @attributes['value'] = if form_options[:found_in_model]
+      default_value = attributes.delete('default_value')
+      if attributes['value'].empty_or_nil?
+        attributes['value'] = if form_options[:found_in_model]
           if form_options[:found_value].empty_or_nil? && !form_options[:objeck_has_errors]
             @context[default_value] || ""
           else
@@ -90,33 +91,45 @@ module Bionic
     end
 
     def parse_name
-      if @attributes['name'].empty_or_nil?
+      if attributes['name'].empty_or_nil?
         if form_options[:form_model].not_nil? && form_options[:found_in_model]
           value = "#{form_options[:form_model]}[#{@name.to_s.underscore}]"
         else
           value = "#{context_value(@name).to_s.underscore}"
         end
-        @attributes['name'] = value
+        attributes['name'] = value
       end
     end
 
     def parse_id
-      if @attributes['id'].empty_or_nil?
+      if attributes['id'].empty_or_nil?
         if form_options[:form_model].not_nil? && form_options[:found_in_model]
           value = "#{form_options[:form_model]}_#{@name.to_s.underscore}"
         else
           value = "#{context_value(@name).to_s.underscore}"
         end
-        @attributes['id'] = value
+        attributes['id'] = value
       end
+    end
+
+    def parse_custom
+      # here for easy extending
     end
 
     def html_attributes
       html_attributes = ""
-      @attributes.each do |key, value|
+      attributes.each do |key, value|
         html_attributes += render_attribute(key, value)
       end
       html_attributes
+    end
+
+    # make a copy of the original so we can cover the case of this tag being in a for loop.
+    # In this case the first interation will be fine, but if the tag/block deletes an attribute
+    # then the second iteration will be missing that attribute.
+    def attributes
+      # leave the original alone
+      @attributes_copy ||= @attributes.dup
     end
 
   end

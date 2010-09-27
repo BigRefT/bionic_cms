@@ -1,8 +1,4 @@
 class TextFieldTag < FieldTag
-  include ERB::Util
-
-  Syntax = /([\w\.]+)/
-  # <length:##> <class:form_class> <id:form_id>
   def initialize(tag_name, markup, tokens)
     begin
       super(tag_name, markup, tokens)
@@ -14,10 +10,10 @@ class TextFieldTag < FieldTag
   private
 
   def html_attributes
-    @no_hidden_checkbox = parse_attribute(@attributes.delete('no_hidden')).to_boolean
+    @no_hidden_checkbox = parse_attribute(attributes.delete('no_hidden')).to_boolean
     @input_type = "text"
     html_attributes = ""
-    @attributes.each do |key, value|
+    attributes.each do |key, value|
       case key
       when 'hidden'
         @input_type = "hidden"
@@ -25,11 +21,11 @@ class TextFieldTag < FieldTag
         @input_type = "password"
       when 'radio'
         @input_type = "radio"
-        if form_options[:found_in_model] && form_options[:found_value] == context_value(@attributes['value']).to_s
+        if form_options[:found_in_model] && form_options[:found_value] == context_value(attributes['value']).to_s
           html_attributes += render_attribute("checked", "checked")
         end
-        html_attributes.gsub!("id=\"#{@attributes['id']}\"", "id=\"#{@attributes['id']}_#{context_value(@attributes['value'])}\"")
-        @attributes['id'] += "_#{@attributes['value']}"
+        html_attributes.gsub!("id=\"#{attributes['id']}\"", "id=\"#{attributes['id']}_#{context_value(attributes['value'])}\"")
+        attributes['id'] += "_#{attributes['value']}"
       when 'checkbox'
         @input_type = "checkbox"
         if form_options[:found_in_model] && @context.registers[form_options[:register_key]].respond_to?("#{@name}?".to_sym) && @context.registers[form_options[:register_key]].send("#{@name}?".to_sym)
@@ -48,7 +44,7 @@ class TextFieldTag < FieldTag
     # create field
     rvalue = ""
     if @input_type == "checkbox" && !@no_hidden_checkbox
-      rvalue += HiddenFieldTag.new("hidden_field_tag", "#{@name} id:#{@attributes['id']} name:#{@attributes['name']} value:0", nil).render(@context)
+      rvalue += HiddenFieldTag.new("hidden_field_tag", "#{@name} id:#{attributes['id']} name:#{attributes['name']} value:0", nil).render(@context)
     end
     rvalue += "<input type=\"#{@input_type}\"#{html_attribute_string} />"
     rvalue

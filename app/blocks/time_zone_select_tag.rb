@@ -1,5 +1,4 @@
 class TimeZoneSelectTag < FieldTag
-
   def initialize(tag_name, markup, tokens)
     begin
       super(tag_name, markup, tokens)
@@ -11,15 +10,15 @@ class TimeZoneSelectTag < FieldTag
   private
 
   def field_html
-    value = @attributes.delete('value') || Time.zone
-    include_blank = parse_attribute(@attributes.delete('include_blank')).to_boolean
-    formatted_name = @attributes.delete('name')
-    @attributes.symbolize_keys!
+    value = attributes.delete('value') || Time.zone
+    include_blank = parse_attribute(attributes.delete('include_blank')).to_boolean
+    formatted_name = attributes.delete('name')
+    attributes.symbolize_keys!
 
     select_tag(
       formatted_name,
       time_zone_options_for_select(value, ::ActiveSupport::TimeZone.us_zones),
-      @attributes.merge({ :include_blank => include_blank })
+      attributes.merge({ :include_blank => include_blank })
     )
   end
 

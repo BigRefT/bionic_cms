@@ -28,6 +28,11 @@ class SelectBlock < Liquid::Block
     end
     rvalue << "</select>"
     rvalue << "</div>" if form_options[:error_found]
+
+    # clear the attribute_copy so the next
+    # pass will get a fresh copy from the original
+    @attributes_copy = nil
+    # return rendered value
     rvalue
   end
 
@@ -35,7 +40,7 @@ class SelectBlock < Liquid::Block
     include Bionic::LiquidFormHelpers
 
   def html_attributes
-    @select_value = @attributes.delete('value')
+    @select_value = attributes.delete('value')
     super
   end
 

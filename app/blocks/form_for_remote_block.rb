@@ -12,21 +12,21 @@ class FormForRemoteBlock < FormForBlock
     @context = context
     parse_action
 
-    @update_id = @attributes.delete('update')
+    @update_id = attributes.delete('update')
 
-    loading_action = @attributes.delete('loading')
+    loading_action = attributes.delete('loading')
     if loading_action
       loading_action = ", onLoading:function(request){#{parse_attribute(loading_action)}}"
     end
 
-    loaded_action = @attributes.delete('loaded')
+    loaded_action = attributes.delete('loaded')
     if loaded_action
       loaded_action = ", onLoaded:function(request){#{parse_attribute(loaded_action)}}"
     end
 
     parameters = "{asynchronous:true, evalScripts:true#{loaded_action}#{loading_action}, parameters:Form.serialize(this)}"
     ajax_call = "\"new Ajax.Updater('#{parse_attribute(@update_id)}', '#{@action}', #{parameters}); return false;\""
-    @attributes['onsubmit'] = ajax_call
+    attributes['onsubmit'] = ajax_call
     super(@context)
   end
 
