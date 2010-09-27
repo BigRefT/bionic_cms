@@ -26,12 +26,10 @@ ActionController::Routing::Routes.draw do |map|
                       :add_site_route => :post,
                       :update_user_groups => :post,
                       :children => :get,
-                      :update_parts => :put,
-                      :order_products => :post,
-                      :product_search => :post
+                      :update_parts => :put
                     } do |site_pages|
-      site_pages.add_product 'add_product/:id',        :controller => 'site_pages', :action => 'add_product',     :conditions => { :method => :post }
-      site_pages.remove_product 'remove_product/:id',  :controller => 'site_pages', :action => 'remove_product',  :conditions => { :method => :delete }
+#      site_pages.add_product 'add_product/:id',        :controller => 'site_pages', :action => 'add_product',     :conditions => { :method => :post }
+#      site_pages.remove_product 'remove_product/:id',  :controller => 'site_pages', :action => 'remove_product',  :conditions => { :method => :delete }
       site_pages.resources :site_page_parts, :as => 'parts',
                            :only => [ :new, :create, :edit, :update, :destroy ],
                            :member => { :start_draft => :post, :publish_draft => :post, :live_content => :get }
