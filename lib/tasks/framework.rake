@@ -61,7 +61,7 @@ unless File.directory? "#{RAILS_ROOT}/app"
       rm_rf "vendor/bionic"
     end
 
-    desc "Update configs, scripts, sass, stylesheets and javascripts from Radiant."
+    desc "Update configs, scripts, sass, stylesheets and javascripts from Bionic."
     task :update do
       tasks = %w{scripts javascripts configs initializers images stylesheets }
       tasks = tasks & ENV['ONLY'].split(',') if ENV['ONLY']
