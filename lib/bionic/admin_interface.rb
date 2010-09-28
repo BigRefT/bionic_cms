@@ -323,6 +323,7 @@ module Bionic
           show.below_content.concat %w{show_additional_script}
           show.right_side.concat %w{page_routes user_access_groups}
         end
+        site_page.update_parts = site_page.show
         site_page.edit = RegionSet.new do |edit|
           edit.main.concat %w{edit_form}
           edit.form_top.concat %w{edit_errors}
