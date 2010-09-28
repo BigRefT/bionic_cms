@@ -44,7 +44,11 @@ class TextFieldTag < FieldTag
     # create field
     rvalue = ""
     if @input_type == "checkbox" && !@no_hidden_checkbox
-      rvalue += HiddenFieldTag.new("hidden_field_tag", "#{@name} id:#{attributes['id']} name:#{attributes['name']} value:0", nil).render(@context)
+      rvalue += HiddenFieldTag.new(
+        "hidden_field_tag",
+        "#{@name} id:\"hidden_#{attributes['id']}\" name:#{attributes['name']} value:0",
+        nil
+      ).render(@context)
     end
     rvalue += "<input type=\"#{@input_type}\"#{html_attribute_string} />"
     rvalue
