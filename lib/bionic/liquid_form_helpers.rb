@@ -56,7 +56,9 @@ module Bionic
         :objeck_has_errors => false,
         :found_value => "",
         :form_model => nil,
-        :register_key => nil
+        :register_key => nil,
+        :found_array => false,
+        :found_value_array => []
       }
     end
 
@@ -70,6 +72,24 @@ module Bionic
             form_options[:found_value] = @context.registers[form_options[:register_key]].send(@name.to_sym).to_s
             form_options[:error_found] = @context.registers[form_options[:register_key]].errors.invalid?(@name.to_sym)
             form_options[:found_in_model] = true
+          else
+            # look for format of model[attribute][] for arrays
+            if @name =~ /[\w]+\[([\w]+)\]\[\]/
+              modified_name = $1
+              if @context.registers[form_options[:register_key]].respond_to?(modified_name.to_sym) # does it have the field
+                form_options[:found_value_array] = @context.registers[form_options[:register_key]].send(modified_name.to_sym)
+                # make sure it's an array
+                if form_options[:found_value_array].is_a?(Array)
+                  # convert all members to strings
+                  form_options[:found_value_array] = form_options[:found_value_array].each(&:to_s)
+                  form_options[:error_found] = @context.registers[form_options[:register_key]].errors.invalid?(modified_name.to_sym)
+                  form_options[:found_in_model] = true
+                  form_options[:found_array] = true
+                else
+                  form_options[:found_value_array] = []
+                end
+              end
+            end
           end
         end
       end

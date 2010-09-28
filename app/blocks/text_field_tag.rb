@@ -28,8 +28,12 @@ class TextFieldTag < FieldTag
         attributes['id'] += "_#{attributes['value']}"
       when 'checkbox'
         @input_type = "checkbox"
-        if form_options[:found_in_model] && @context.registers[form_options[:register_key]].respond_to?("#{@name}?".to_sym) && @context.registers[form_options[:register_key]].send("#{@name}?".to_sym)
-          html_attributes += render_attribute("checked", "checked")
+        if form_options[:found_in_model]
+          if form_option[:found_array] && form_option[:found_value_array].contains(parse_attribute(attributes['value']).to_s)
+            html_attributes += render_attribute("checked", "checked")
+          elsif @context.registers[form_options[:register_key]].respond_to?("#{@name}?".to_sym) && @context.registers[form_options[:register_key]].send("#{@name}?".to_sym)
+            html_attributes += render_attribute("checked", "checked")
+          end
         end
       else
         html_attributes += render_attribute(key, value)
