@@ -63,6 +63,7 @@ class Admin::ProfilesController < ApplicationController
         format.html { redirect_to(admin_profiles_url) }
       else
         @user_groups_for_user = find_user_groups_for_user
+        @histories = @profile.histories.find(:all, :limit => 10)
         format.html { render :action => "edit" }
       end
     end
