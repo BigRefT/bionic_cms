@@ -74,7 +74,7 @@ module Bionic
             form_options[:found_in_model] = true
           else
             # look for format of model[attribute][] for arrays
-            if @name =~ /[\w]+\[([\w]+)\]\[\]/
+            if !attributes['name'].empty_or_nil? && parse_attribute(attributes['name']) =~ /[\w]+\[([\w]+)\]\[\]/
               modified_name = $1
               if @context.registers[form_options[:register_key]].respond_to?(modified_name.to_sym) # does it have the field
                 form_options[:found_value_array] = @context.registers[form_options[:register_key]].send(modified_name.to_sym)
