@@ -102,7 +102,7 @@ module Bionic
           if form_options[:found_value].empty_or_nil? && !form_options[:objeck_has_errors]
             @context[default_value] || ""
           else
-            form_options[:found_value]
+            "\"#{form_options[:found_value]}\""
           end
         else
           @context[default_value] || ""
@@ -113,9 +113,9 @@ module Bionic
     def parse_name
       if attributes['name'].empty_or_nil?
         if form_options[:form_model].not_nil? && form_options[:found_in_model]
-          value = "#{form_options[:form_model]}[#{@name.to_s.underscore}]"
+          value = "\"#{form_options[:form_model]}[#{@name.to_s.underscore}]\""
         else
-          value = "#{context_value(@name).to_s.underscore}"
+          value = "\"#{context_value(@name).to_s.underscore}\""
         end
         attributes['name'] = value
       end
@@ -124,9 +124,9 @@ module Bionic
     def parse_id
       if attributes['id'].empty_or_nil?
         if form_options[:form_model].not_nil? && form_options[:found_in_model]
-          value = "#{form_options[:form_model]}_#{@name.to_s.underscore}"
+          value = "\"#{form_options[:form_model]}_#{@name.to_s.underscore}\""
         else
-          value = "#{context_value(@name).to_s.underscore}"
+          value = "\"#{context_value(@name).to_s.underscore}\""
         end
         attributes['id'] = value
       end
