@@ -100,12 +100,12 @@ module Bionic
       if attributes['value'].empty_or_nil?
         attributes['value'] = if form_options[:found_in_model]
           if form_options[:found_value].empty_or_nil? && !form_options[:objeck_has_errors]
-            @context[default_value] || ""
+            @context[default_value].to_s
           else
             "\"#{form_options[:found_value]}\""
           end
         else
-          @context[default_value] || ""
+          @context[default_value].to_s
         end
       end
     end
