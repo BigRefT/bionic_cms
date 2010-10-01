@@ -9,22 +9,27 @@ module BionicFilter
   alias_method :cgi_h, :cgi_escape
 
   def javascript_include(name)
+    return "" if name.empty_or_nil?
     javascript_include_tag(name == "defaults" ? name.to_sym : name)
   end
 
   def asset_javascript_include(file_name)
+    return "" if file_name.empty_or_nil?
     javascript_include_tag "/assets/#{Site.current_site_id || 'admin'}/original/#{file_name.strip.gsub(/[^\w\d\.\-]+/, '_')}"
   end
 
   def stylesheet_include(name)
+    return "" if name.empty_or_nil?
     stylesheet_link_tag name
   end
 
   def asset_stylesheet_include(file_name)
+    return "" if file_name.empty_or_nil?
     stylesheet_link_tag "/assets/#{Site.current_site_id || 'admin'}/original/#{file_name.strip.gsub(/[^\w\d\.\-]+/, '_')}"
   end
 
   def link(text, path)
+    return "" if text.empty_or_nil? || path.empty_or_nil?
     link_to text, path
   end
   
@@ -37,15 +42,18 @@ module BionicFilter
   end
 
   def image(image_path)
+    return "" if image_path.empty_or_nil?
     image_tag image_path
   end
 
   def assign_to(value, assign)
+    return if assign.empty_or_nil?
     @context[assign] = value
     nil
   end
 
   def asset_image(image_path, style = "original")
+    return "" if image_path.empty_or_nil?
     image_tag "/assets/#{Site.current_site_id || 'admin'}/#{style}/#{image_path}"
   end
 
@@ -55,6 +63,7 @@ module BionicFilter
   alias :asset_url :asset_image_url
 
   def link_to_original_asset(text, file_name)
+    return "" if text.empty_or_nil?
     link_to text, "/assets/#{Site.current_site_id || 'admin'}/original/#{file_name.strip.gsub(/[^\w\d\.\-]+/, '_')}"
   end
 
