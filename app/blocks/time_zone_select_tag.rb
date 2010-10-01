@@ -10,9 +10,9 @@ class TimeZoneSelectTag < FieldTag
   private
 
   def field_html
-    value = attributes.delete('value') || Time.zone
+    value = parse_attribute(attributes.delete('value')) || Time.zone
     include_blank = parse_attribute(attributes.delete('include_blank')).to_boolean
-    formatted_name = attributes.delete('name')
+    formatted_name = parse_attribute(attributes.delete('name'))
     attributes.symbolize_keys!
 
     select_tag(

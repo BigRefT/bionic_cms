@@ -107,6 +107,9 @@ module Bionic
         else
           @context[default_value].to_s
         end
+        puts "************ form_options: #{form_options.inspect}" if @name == "consultant_id"
+        puts "************ value for #{@name}: #{value}"
+        # add quotes to avoid parsing the value any more
         attributes['value'] = "\"#{value}\""
       end
     end
@@ -118,6 +121,7 @@ module Bionic
         else
           context_value(@name).to_s.underscore
         end
+        # add quotes to avoid parsing the value any more
         attributes['name'] = "\"#{value}\""
       end
     end
@@ -129,6 +133,7 @@ module Bionic
         else
           context_value(@name).to_s.underscore
         end
+        # add quotes to avoid parsing the value any more
         attributes['id'] = "\"#{value}\""
       end
     end

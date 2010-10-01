@@ -11,7 +11,7 @@ class TimeSelectTag < FieldTag
 
   def field_html
     # get date value
-    value = attributes.delete('value')
+    value = parse_attribute(attributes.delete('value'))
     value = DateTime.parse(value) if value.is_a? String
     twelve_hour = parse_attribute(attributes.delete('twelve_hour')).to_boolean
     minute_step = parse_attribute(attributes.delete('minute_step')).to_i
@@ -19,9 +19,9 @@ class TimeSelectTag < FieldTag
     time_options = {
       :tag => true, #forces the creation of hidden date fields
       :field_name => @name,
-      :prefix => attributes.delete('prefix') || @form_options[:form_model],
+      :prefix => parse_attribute(attributes.delete('prefix')) || @form_options[:form_model],
       :include_position => true,
-      :time_separator => attributes.delete('time_separator') || " : ",
+      :time_separator => parse_attribute(attributes.delete('time_separator')) || " : ",
       :twelve_hour => twelve_hour
     }
     time_options[:minute_step] = minute_step if minute_step > 0

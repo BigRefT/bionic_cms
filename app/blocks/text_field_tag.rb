@@ -21,11 +21,11 @@ class TextFieldTag < FieldTag
         @input_type = "password"
       when 'radio'
         @input_type = "radio"
-        if form_options[:found_in_model] && form_options[:found_value] == context_value(attributes['value']).to_s
+        if form_options[:found_in_model] && form_options[:found_value] == parse_attribute(attributes['value']).to_s
           html_attributes += render_attribute("checked", "checked")
         end
-        html_attributes.gsub!("id=\"#{attributes['id']}\"", "id=\"#{attributes['id']}_#{context_value(attributes['value'])}\"")
-        attributes['id'] += "_#{attributes['value']}"
+        html_attributes.gsub!("id=\"#{parse_attribute(attributes['id'])}\"", "id=\"#{parse_attribute(attributes['id'])}_#{parse_attribute(attributes['value'])}\"")
+        attributes['id'] += "_#{parse_attribute(attributes['value'])}"
       when 'checkbox'
         @input_type = "checkbox"
         if form_options[:found_in_model]
@@ -50,7 +50,7 @@ class TextFieldTag < FieldTag
     if @input_type == "checkbox" && !@no_hidden_checkbox
       rvalue += HiddenFieldTag.new(
         "hidden_field_tag",
-        "#{@name} id:\"hidden_#{attributes['id']}\" name:#{attributes['name']} value:0",
+        "#{@name} id:\"hidden_#{parse_attribute(attributes['id'])}\" name:#{attributes['name']} value:0",
         nil
       ).render(@context)
     end
