@@ -98,37 +98,38 @@ module Bionic
     def parse_value
       default_value = attributes.delete('default_value')
       if attributes['value'].empty_or_nil?
-        attributes['value'] = if form_options[:found_in_model]
+        value = if form_options[:found_in_model]
           if form_options[:found_value].empty_or_nil? && !form_options[:objeck_has_errors]
             @context[default_value].to_s
           else
-            "\"#{form_options[:found_value]}\""
+            form_options[:found_value]
           end
         else
           @context[default_value].to_s
         end
+        attributes['value'] = "\"#{value}\""
       end
     end
 
     def parse_name
       if attributes['name'].empty_or_nil?
-        if form_options[:form_model].not_nil? && form_options[:found_in_model]
-          value = "\"#{form_options[:form_model]}[#{@name.to_s.underscore}]\""
+        value = if form_options[:form_model].not_nil? && form_options[:found_in_model]
+          "#{form_options[:form_model]}[#{@name.to_s.underscore}]"
         else
-          value = "\"#{context_value(@name).to_s.underscore}\""
+          context_value(@name).to_s.underscore
         end
-        attributes['name'] = value
+        attributes['name'] = "\"#{value}\""
       end
     end
 
     def parse_id
       if attributes['id'].empty_or_nil?
-        if form_options[:form_model].not_nil? && form_options[:found_in_model]
-          value = "\"#{form_options[:form_model]}_#{@name.to_s.underscore}\""
+        value = if form_options[:form_model].not_nil? && form_options[:found_in_model]
+          "#{form_options[:form_model]}_#{@name.to_s.underscore}"
         else
-          value = "\"#{context_value(@name).to_s.underscore}\""
+          context_value(@name).to_s.underscore
         end
-        attributes['id'] = value
+        attributes['id'] = "\"#{value}\""
       end
     end
 
