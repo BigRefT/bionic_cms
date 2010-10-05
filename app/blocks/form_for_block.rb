@@ -60,6 +60,7 @@ class FormForBlock < Liquid::Block
       end
     end
 
+    # create a new reocrd if we have a form model but no record
     if @form_model.not_nil? && @context.registers[@register_key].nil?
       @context.registers[@register_key] = @form_model.camelize.constantize.new
     end
