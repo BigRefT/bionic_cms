@@ -31,4 +31,8 @@ class ThemePage < Page
     true
   end
 
+  def allow_multiple?
+    false
+  end
+
 end
