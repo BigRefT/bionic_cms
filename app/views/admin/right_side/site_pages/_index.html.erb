@@ -1,15 +1,36 @@
 <% render_region :right_side do |right_side| %>
   <% right_side.right_theme_pages do %>
-    <h3>Theme Pages</h3>
-    <ul>
+    <div style="margin-top: 20px">
       <% ThemePage.page_types_for_select.sort_by { |p| p.first }.each do |theme_type| %>
-        <% theme_page = @theme_pages.select { |page| page.class_name == theme_type[1] } %>
-        <% if theme_page.empty? %>
-        <li><%= theme_type[0] %> (<%= link_to "Create", new_admin_site_page_path(:theme => theme_type[1]) %>)</li>
-        <% else %>
-        <li><%= link_to theme_page.first.name, admin_site_page_path(theme_page.first) %> (<%= theme_page.first.class_name %>)</li>
-        <% end %>
+        <% current_theme_pages = @theme_pages.select { |page| page.class_name == theme_type[1] } %>
+        <h3><%= theme_type[0] %>s</h3>
+        <ul class="theme_page_list">
+          <% if current_theme_pages.empty? %>
+            <li><%= link_to "Create", new_admin_site_page_path(:theme => theme_type[1]) %></li>
+          <% else %>
+            <% if current_theme_pages.first.allow_multiple? %>
+              <% current_theme_pages.each_with_index do |theme_page, index| %>
+                <li>
+                  <%= theme_page.name %>
+                  <div class="fr">
+                    <%= link_to "Edit", admin_site_page_path(theme_page) %>
+                    | <%= link_to 'Delete', admin_site_page_path(theme_page), :confirm => 'Are you sure?', :method => :delete %>
+                  </div>
+                </li>
+              <% end %>
+              <li><%= link_to "Create", new_admin_site_page_path(:theme => theme_type[1]) %></li>
+            <% else %>
+              <li>
+                <%= current_theme_pages.first.name  %>
+                <div class="fr">
+                  <%= link_to "Edit", admin_site_page_path(current_theme_pages.first) %>
+                  | <%= link_to 'Delete', admin_site_page_path(current_theme_pages.first), :confirm => 'Are you sure?', :method => :delete %>
+                </div>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
       <% end %>
-    </ul>
+    </div>
   <% end %>
 <% end %>
