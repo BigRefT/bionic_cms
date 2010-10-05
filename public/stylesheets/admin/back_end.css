@@ -465,6 +465,13 @@
   margin-bottom: 10px;
 }
 
+#page_content_right_id ul.theme_page_list li {
+  list-style-type: none;
+  list-style-position: outside;
+  margin: 0px;
+  padding: 0px;
+}
+
 #page_content_right_id h3 {
   border-bottom:1px solid #D0DFE6;
   color:#2E3A3F;
