@@ -93,9 +93,6 @@ class InstanceGenerator < Rails::Generator::Base
 
       m.template "instance_boot.rb", "config/boot.rb"
 
-      # Instance delayed_job script
-      m.file "insance_delayed_job_script.rb", "script/job_runner", script_options
-
       # Install Readme
       m.readme bionic_root("INSTALL")
     end
