@@ -19,13 +19,9 @@ class SitePageDrop < Liquid::Drop
     end
     rvalue
   end
-  
+
   def children
-    rvalue = []
-    @site_page.children.find(:all, :conditions => ['published = ?', true], :order => "published_at DESC").each do |child|
-      rvalue << SitePageDrop.new(child)
-    end
-    rvalue
+    find_children
   end
 
   def all_children
@@ -73,7 +69,22 @@ class SitePageDrop < Liquid::Drop
     if value =~ /([\w]+)_part/
       found = @site_page.part($1)
       found.nil? ? nil : found.active_revision(@context['site'].draft_mode).content
+    elsif value =~ /children_sorted_by_([\w]+)/
+      find_children :order => $1
+    elsif value =~ /children_sorted_by_([\w]+)_desc/
+      find_children :order => "#{$1} desc"
     end
+  end
+
+  private
+
+  def find_children(options = {})
+    options.reverse_merge!({:conditions => ['published = ?', true], :order => "published_at DESC"})
+    rvalue = []
+    @site_page.children.find(:all, :conditions => options[:conditions], :order => options[:order]).each do |child|
+      rvalue << SitePageDrop.new(child)
+    end
+    rvalue
   end
 
 end
