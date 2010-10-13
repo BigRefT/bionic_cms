@@ -58,10 +58,13 @@ class InstanceGenerator < Rails::Generator::Base
           m.file bionic_root(file), file
         end
       end
-      
+
       # script/generate
       m.file "instance_generate", "script/generate", script_options
-      
+
+      # sphinx.yml
+      m.file bionic_root("config/sphinx.yml.example"), "config/sphinx.yml"
+
       # database.yml
       m.template "databases/#{options[:db]}.yml", "config/database.yml", :assigns => {
         :app_name => app_name,
