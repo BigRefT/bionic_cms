@@ -69,10 +69,10 @@ class SitePageDrop < Liquid::Drop
     if value =~ /([\w]+)_part/
       found = @site_page.part($1)
       found.nil? ? nil : found.active_revision(@context['site'].draft_mode).content
-    elsif value =~ /children_sorted_by_([\w]+)/
-      find_children :order => $1
     elsif value =~ /children_sorted_by_([\w]+)_desc/
       find_children :order => "#{$1} desc"
+    elsif value =~ /children_sorted_by_([\w]+)/
+      find_children :order => $1
     end
   end
 
