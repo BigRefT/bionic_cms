@@ -12,19 +12,9 @@ class HomeController < ApplicationController
   def show_page
     flash.keep # keep flash around 
     if Site.current_site_id
-      url = params[:url]
-      if Array === url
-        url = url.join('/')
-      else
-        url = url.to_s
-      end
-      url = url == "/" ? url : "/" + url
+      url = parse_url_param
+      return if url_is_special?(url)
 
-      if url =~ /\/images|assets[\?\/]?/
-        render :text => '404 - public file not found.', :status => 404, :content_type => SiteLayout.default_content_type
-        return
-      end
-      
       # find the route without query parameters
       @site_route = SiteRoute.find_by_url_handle(url, request.query_string)
       if @site_route # route found
@@ -36,7 +26,6 @@ class HomeController < ApplicationController
           end
 
           return unless can_access_page?(@site_route.routeable)
-
           # see if ssl required
           return if ssl_redirect(@site_route.routeable.ssl_required?)
 
@@ -139,6 +128,24 @@ class HomeController < ApplicationController
   end
 
 private
+
+  def parse_url_param
+    url = params[:url]
+    if Array === url
+      url = url.join('/')
+    else
+      url = url.to_s
+    end
+    url == "/" ? url : "/" + url
+  end
+
+  def url_is_special?(url)
+    if url =~ /\/images|assets[\?\/]?/
+      render :text => '404 - public file not found.', :status => 404, :content_type => SiteLayout.default_content_type
+      return true
+    end
+    false
+  end
 
   def can_access_page?(page)
     unless current_user_can_access_page?(page)
