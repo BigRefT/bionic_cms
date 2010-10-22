@@ -32,6 +32,7 @@ class CalendarDateSelectTag < FieldTag
   end
 
   def field_html
+    html_attributes
     attributes.symbolize_keys!
     calendar_date_select_tag(attributes.delete(:name), attributes.delete(:value), attributes)
   end
