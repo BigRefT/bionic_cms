@@ -35,7 +35,7 @@ class CalendarDateSelectTag < FieldTag
     attributes.symbolize_keys!
     name = attributes.delete(:name)
     value = attributes.delete(:value)
-    atrributes.each { |key, value| atrributes[key] = parse_attribute(value) }
+    attributes.each { |key, value| attributes[key] = parse_attribute(value) }
     calendar_date_select_tag(name, value, attributes)
   end
 
