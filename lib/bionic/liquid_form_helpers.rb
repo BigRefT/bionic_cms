@@ -108,7 +108,7 @@ module Bionic
           @context[default_value].to_s
         end
         # add quotes to avoid parsing the value any more
-        attributes['value'] = "\"#{value}\""
+        attributes['value'] = value.empty_or_nil? ? "" : "\"#{value}\""
       end
     end
 
@@ -120,7 +120,7 @@ module Bionic
           context_value(@name).to_s.underscore
         end
         # add quotes to avoid parsing the value any more
-        attributes['name'] = "\"#{value}\""
+        attributes['name'] = value.empty_or_nil? ? "" : "\"#{value}\""
       end
     end
 
@@ -132,7 +132,7 @@ module Bionic
           context_value(@name).to_s.underscore
         end
         # add quotes to avoid parsing the value any more
-        attributes['id'] = "\"#{value}\""
+        attributes['id'] = value.empty_or_nil? ? "" : "\"#{value}\""
       end
     end
 
