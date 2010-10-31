@@ -174,12 +174,6 @@ end_error
       require 'lockdown'
 
       super
-      # add bionic models to think sphinx path
-      # this has to come after the plug-ins (super) are loaded
-      # otherwise thinking_sphinx will be loaded twice
-      ThinkingSphinx::Configuration.instance.model_directories << "#{BIONIC_ROOT}/app/models"
-      ThinkingSphinx::Configuration.instance.model_directories += Dir.glob("#{BIONIC_ROOT}/vendor/extensions/*/app/models")
-      ThinkingSphinx::Configuration.instance.model_directories += Dir.glob("#{RAILS_ROOT}/vendor/extensions/*/app/models")
 
       extension_loader.load_extensions
       add_gem_load_paths

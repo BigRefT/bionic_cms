@@ -25,20 +25,6 @@ class Profile < ActiveRecord::Base
   
   named_scope :by_cookie_token, lambda { |token| { :conditions => ["remember_token = ? and remember_token is not null", token] } }
 
-  # full text searching
-  define_index do
-    indexes [:first_name, :last_name], :as => :full_name, :sortable => true
-    indexes email, :sortable => true
-    indexes user.login, :as => :user_login, :sortable => true
-    indexes user.user_groups.name, :as => :user_group_names
-
-    has site_id
-
-    set_property :enable_star => 1
-    set_property :min_infix_len => 3
-    set_property :delta => true
-  end
-
   class << self
     def find_id_by_cookie_token(token)
       return nil if token.empty_or_nil?

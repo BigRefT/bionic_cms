@@ -9,41 +9,30 @@ class ProfileSearch < ActiveRecord::BaseWithoutTable
   end
 
   def profiles
-    if Site.current_site_id.nil?
-      return Profile.paginate(:all, :page => page, :per_page => per_page, :order => :email)
-    end
-
-    if phrase.empty_or_nil?
-      Profile.search(
-        :with => with,
-        :order => order,
-        :page => page,
-        :per_page => per_page
-      )
-    else
-      if phrase =~ /^user_group:/
-        Profile.search(
-          :conditions => { :user_group_names => "#{parse_user_group}" },
-          :with => with,
-          :order => order,
-          :page => page
-        )
-      else
-        Profile.search(
-          "*#{phrase}*",
-          :with => with,
-          :order => order,
-          :page => page,
-          :per_page => per_page
-        )
-      end
-    end
+    Profile.paginate(
+      :conditions => conditions,
+      :per_page => per_page,
+      :order => order,
+      :page => page,
+      :joins => [:user => :user_groups]
+    )
   end
 
   private
 
-  def with
-    { :site_id => Site.current_site_id }
+  def conditions
+    rvalue = nil
+    if Site.current_site_id.not_nil? && !phrase.empty_or_nil?
+      if phrase =~ /^user_group:/
+        rvalue = { :users => { :user_groups => { :name => parse_user_group }}}
+      else
+        rvalue = [like_conditions.join(" OR ")]
+        like_conditions.length.times do
+          rvalue << "%#{phrase}%"
+        end
+      end
+    end
+    rvalue
   end
 
   def order
@@ -52,8 +41,16 @@ class ProfileSearch < ActiveRecord::BaseWithoutTable
 
   def parse_user_group
     user_group = phrase.split(":")[1]
-    user_group.strip!
-    user_group
+    user_group.strip
+  end
+
+  def like_conditions
+    [
+      "users.login LIKE ?",
+      "profiles.email LIKE ?",
+      "profiles.first_name LIKE ?",
+      "profiles.last_name LIKE ?"
+    ]
   end
 
 end
