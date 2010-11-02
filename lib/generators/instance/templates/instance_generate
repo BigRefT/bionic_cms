@@ -6,7 +6,6 @@ require 'rails_generator/scripts/generate'
 
 class Rails::Generator::Base
   def self.use_application_sources!
-    reset_sources
     sources << Rails::Generator::PathSource.new(:builtin, "#{BIONIC_ROOT}/lib/generators")
     plugins_path = File.expand_path(File.join(RAILS_ROOT, %w(vendor plugins)))
     sources << Rails::Generator::PathSource.new(:"plugins (vendor/plugins)", "#{plugins_path}/*/**/{,rails_}generators")
