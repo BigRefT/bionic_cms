@@ -4,7 +4,6 @@
 class ApplicationController < ActionController::Base
   include SslRequirement
 
-  helper :all # include all helpers, all the time
   layout 'admin/bionic'
   protect_from_forgery
   prepend_before_filter :get_site_from_hostname, :set_status
