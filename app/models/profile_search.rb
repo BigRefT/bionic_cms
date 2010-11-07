@@ -3,6 +3,7 @@ class ProfileSearch < ActiveRecord::BaseWithoutTable
   column :phrase, :string, ""
   column :page, :integer, 1
   column :per_page, :integer, 25
+  column :user_group_search, :boolean, :default => false
 
   def self.per_page_select_options
     [["25", "25"], ["50", "50"], ["100", "100"], ["250", "250"], ["500", "500"], ["1000", "1000"]]
@@ -14,7 +15,7 @@ class ProfileSearch < ActiveRecord::BaseWithoutTable
       :per_page => per_page,
       :order => order,
       :page => page,
-      :joins => [:user => :user_groups]
+      :joins => (user_group_search? ? [:user => :user_groups] : nil)
     )
   end
 
@@ -22,8 +23,10 @@ class ProfileSearch < ActiveRecord::BaseWithoutTable
 
   def conditions
     rvalue = nil
+    user_group_search = false
     if Site.current_site_id.not_nil? && !phrase.empty_or_nil?
       if phrase =~ /^user_group:/
+        user_group_search = true
         rvalue = { :users => { :user_groups => { :name => parse_user_group }}}
       else
         rvalue = [like_conditions.join(" OR ")]
