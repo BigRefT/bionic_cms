@@ -15,7 +15,6 @@ module Bionic
     attr_accessor :config
     
     def bootstrap(config)
-      ThinkingSphinx.deltas_enabled = false
       @config = config
       @admin = create_admin_user(
         config[:admin_first_name],
