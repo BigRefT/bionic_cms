@@ -31,12 +31,12 @@ class << ActiveRecord::Base
     if Site.current_site_id || @return_strict_values
       if Site.current_site_id
         if @use_site_id_in_find_every
-          site_conditions = "(`#{table_name}`.site_id = #{Site.current_site_id}"
-          site_conditions += " or `#{table_name}`.site_id is null" if @include_null_site_in_find_every
+          site_conditions = "(#{ActiveRecord::Base.connection.quote_table_name(table_name)}.site_id = #{Site.current_site_id}"
+          site_conditions += " or #{ActiveRecord::Base.connection.quote_table_name(table_name)}.site_id is null" if @include_null_site_in_find_every
           site_conditions += ")"
         end
       else
-        site_conditions = "(`#{table_name}`.site_id is null)" if @use_site_id_in_find_every
+        site_conditions = "(#{ActiveRecord::Base.connection.quote_table_name(table_name)}.site_id is null)" if @use_site_id_in_find_every
       end
     end
     site_conditions
