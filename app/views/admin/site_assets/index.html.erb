@@ -22,7 +22,7 @@
     </thead>
     <tbody>
       <% if @site_assets.length == 0 %>
-        <tr><td colspan="<%= admin_interface.site_assets.index.list_data.length %>" class="no_entries">No Site Layouts</td></tr>
+        <tr><td colspan="<%= admin_interface.site_assets.index.list_data.length %>" class="no_entries">No Site Assets</td></tr>
       <% else %>
          <%= render :partial => 'site_asset', :collection => @site_assets %>
       <% end %>
