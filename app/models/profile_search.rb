@@ -15,7 +15,7 @@ class ProfileSearch < ActiveRecord::BaseWithoutTable
       :per_page => per_page,
       :order => order,
       :page => page,
-      :joins => (user_group_search? ? [:user => :user_groups] : nil)
+      :joins => (user_group_search? ? [:user => :user_groups] : :user)
     )
   end
 

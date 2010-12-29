@@ -10,6 +10,7 @@ class Admin::ProfilesController < ApplicationController
     if @profile_search.nil?
       create_new_profile_search
     end
+    @profile_search.page = params[:page] || 1
     save_profile_search
     search_profiles
 
@@ -145,7 +146,6 @@ class Admin::ProfilesController < ApplicationController
 
   def create_new_profile_search
     @profile_search = ProfileSearch.new(new_profile_search_params)
-    @profile_search.page = params[:page] || 1
   end
 
   def new_profile_search_params
