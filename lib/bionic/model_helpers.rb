@@ -36,7 +36,7 @@ module Bionic
     end
   
     def show_success(model_string = nil, action = "updated")
-      flash[:notice] = "#{model_string} #{action} successfully." if model_string
+      flash[:notice] = "#{model_string.underscore.humanize.titlecase rescue model_string} #{action} successfully." if model_string
       # prevent redirect to another site
       # doing this by making sure the url starts with a '/'
       # not a great way to do it, but it works
