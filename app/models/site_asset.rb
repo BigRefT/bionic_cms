@@ -48,7 +48,7 @@ class SiteAsset < ActiveRecord::Base
   end
   
   def compressed_type?
-    ['application/zip'].include?(asset_content_type)
+    ['application/zip', 'application/x-zip-compressed'].include?(asset_content_type)
   end
 
   def file_path(style = "original")
