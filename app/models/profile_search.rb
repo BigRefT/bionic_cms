@@ -23,10 +23,10 @@ class ProfileSearch < ActiveRecord::BaseWithoutTable
 
   def conditions
     rvalue = nil
-    user_group_search = false
+    self.user_group_search = false
     if Site.current_site_id.not_nil? && !phrase.empty_or_nil?
       if phrase =~ /^user_group:/
-        user_group_search = true
+        self.user_group_search = true
         rvalue = { :users => { :user_groups => { :name => parse_user_group }}}
       else
         rvalue = [like_conditions.join(" OR ")]
