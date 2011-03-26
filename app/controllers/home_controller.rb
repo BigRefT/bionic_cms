@@ -174,6 +174,7 @@ private
   
   def standard_assigns(current_page = nil)
     { 'current_page' => current_page || @site_route.url_handle,
+      'previous_page' => session[:previous_page],
       'query_string' => QueryStringDrop.new(@current_url_hash),
       'form_params' => form_params }
   end
